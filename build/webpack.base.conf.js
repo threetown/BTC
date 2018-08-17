@@ -10,7 +10,7 @@ function resolve (dir) {
 
 
 
-module.exports = {
+const webpackConfig = {
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
@@ -27,6 +27,9 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'src': path.resolve(__dirname, '../src'),
+      'assets': path.resolve(__dirname, '../src/assets'),
+      'components': path.resolve(__dirname, '../src/components')
     }
   },
   module: {
@@ -80,3 +83,9 @@ module.exports = {
     child_process: 'empty'
   }
 }
+
+const vuxLoader = require('vux-loader') 
+module.exports = vuxLoader.merge(webpackConfig, { 
+  options: {}, 
+  plugins: ['vux-ui'] 
+ }) 
