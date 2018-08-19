@@ -31,7 +31,7 @@ body {
     text-align: center;
 }
 @import "iconfont/iconfont.css";
-
+@import "./footer";
 // vue transition style
 .router-fade-enter-active, .router-fade-leave-active {
     transition: opacity .3s;
@@ -57,6 +57,12 @@ transition: all .4s;
 .router-slid-enter, .router-slid-leave-active {
 transform: translate3d(2rem, 0, 0);
 opacity: 0;
+}
+.toggle-cart-enter-active, .toggle-cart-leave-active {
+    transition: all .3s ease-out;
+}
+.toggle-cart-enter, .toggle-cart-leave-active {
+    transform: translateY(100%);
 }
 .router-rating_page {
     position: absolute;

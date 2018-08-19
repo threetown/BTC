@@ -4,6 +4,8 @@ import Router from 'vue-router'
 const layout = r => require.ensure([], () => r(require('../pages/layout')), 'layout')
 
 const index = r => require.ensure([], () => r(require('../pages/index')), 'index')
+const search = r => require.ensure([], () => r(require('../pages/index/children/search')), 'search')
+
 const init = r => require.ensure([], () => r(require('../pages/init')), 'init')
 const login = r => require.ensure([], () => r(require('../pages/login')), 'login')
 const forget = r => require.ensure([], () => r(require('../pages/forget')), 'forget')
@@ -21,7 +23,12 @@ const routes = [
     redirect: '/index',
     meta: { title: 'imToken国际版' },
     children: [
-      { path: '/index', name: 'index', component: index, meta: { title: '首页', requireAuth: true }},
+      {
+        path: '/index', name: 'index', component: index, meta: { title: '首页', requireAuth: true },
+        children: [
+          { path: "search", name: 'search', component: search, meta: { title: '搜索' }}
+        ]
+      },
     ]
   },
   { path: "/init", name: 'init', component: init, meta: { title: '创建身份' }},

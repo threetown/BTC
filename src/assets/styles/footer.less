@@ -1,0 +1,59 @@
+.footer_nav {
+    display: flex;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #fbfcfd;
+    height: 1.16rem;
+    box-shadow: 0 -.1rem .1rem #f4f4f3;
+    text-align: center;
+    a{
+      color: #5b6b77;
+    }
+    li{
+      padding: .12rem 0;
+      flex: 1;
+      i{
+        width: 0.5rem;
+        height: 0.5rem;
+        display: inline-block;
+        background: url('../images/footer-icon.png') no-repeat;
+        background-size: auto 1rem;
+        
+      }
+      &:nth-child(1){
+          i{
+              background-position: 0 0;
+          }
+      }
+      &:nth-child(2){
+          i{
+              background-position: -.5rem 0;
+          }
+      }
+      &:nth-child(3){
+          i{
+              background-position: -1rem 0;
+          }
+      }
+      &:nth-child(4){
+          i{
+              background-position: -1.5rem 0;
+          }
+      }
+      .title{
+        font-size: .22rem;
+        line-height: .36rem;
+        display: block;
+      }
+      .active{
+        span{
+            color: #0062ad;
+        }
+        i{
+            background-position-y: -.5rem;
+        }
+      }
+    }
+  }

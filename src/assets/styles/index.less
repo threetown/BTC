@@ -1,0 +1,218 @@
+.Index{
+    position: relative;
+    height: 100vh;
+    padding-bottom: 1.32rem;
+    background-color: #fff;
+    .fixed_link{
+        position: fixed;
+        bottom: 1.62rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 85%;
+        box-shadow: 0 0 .42rem #eff3f7;
+        img{
+            width: 100%;
+        }
+    }
+    &_tools{
+        position: relative;
+        height: 0.88rem;
+        padding: 0.22rem;
+        background-color: #fff;
+        border-bottom: .01rem solid #eff0f2;
+        >i{
+            position: absolute;
+            top: .26rem;
+            font-size: .42rem;
+            &.L{
+                left: 0.26rem;
+            }
+            &.R{
+                right: 0.26rem;
+            }
+        }
+        .title{
+            margin: 0 1rem;
+            text-align: center;
+            .trigger_button{
+                height: 0.42rem;
+                border: .01rem solid #001528;
+                border-radius: .2rem;
+                font-size: .18rem;
+                padding: 0 .18rem;
+                background-color: transparent;
+                i{
+                    font-size: .14rem;
+                    display: inline-block;
+                    transform: rotate(-90deg);
+                }
+            }
+        }
+    }
+    .wallet{
+        &_card{
+            position: relative;
+            color: #fff;
+            margin: 0.18rem;
+            height: 2.16rem;
+            padding: 0.2rem .32rem;
+            border-radius: .16rem;
+            background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0594c2), to(#1285cf));
+            .header{
+                position: relative;
+                padding-left: 1rem;
+                height: 0.72rem;
+                margin-right: 1.2rem;
+                .name{
+                    font-size: .3rem;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                .code{
+                    font-size: .22rem;
+                    height: 0.28rem;
+                    line-height: 0.28rem;
+                    i{
+                        color: #fff;
+                        font-size: .26rem;
+                        margin-left: 0.14rem;
+                    }
+                }
+                .pic{
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 0.72rem;
+                    height: 0.72rem;
+                    border-radius: .1rem;
+                    background-color: #fff;
+                    img{
+                        width: 100%;
+                        vertical-align: middle;
+                    }
+                }
+            }
+            .more{
+                position: absolute;
+                top: 0.22rem;
+                right: 0.26rem;
+            }
+            .price{
+                position: absolute;
+                right: 0.35rem;
+                bottom: .26rem;
+                span{
+                    font-size: .42rem;
+                }
+            }
+        }
+        &_list{
+            padding: 0.22rem;
+            .header{
+                position: relative;
+                height: 0.52rem;
+                h2{
+                    font-size: .32rem;
+                    line-height: 0.52rem;
+                    font-weight: bold;
+                    color: #273c4c;
+                }
+                i{
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    font-size: .48rem;
+                    color: #00051a;
+                }
+            }
+            .list{
+                li{
+                    position: relative;
+                    height: 1.5rem;
+                    padding: 0.34rem;
+                    border-bottom: .01rem solid #f3f4f5;
+                    .icon{
+                        width: 0.82rem;
+                        height: 0.82rem;
+                        border-radius: 50%;
+                        border: .01rem solid #f3f4f5;
+                        display: inline-block;
+                        background-color: #fff;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        background-size: contain;
+                    }
+                    .name{
+                        font-size: .32rem;
+                        padding-left: 0.2rem;
+                        color: #556571;
+                        line-height: 0.82rem;
+                        display: inline-block;
+                        vertical-align: top;
+                    }
+                    .info{
+                        float: right;
+                        text-align: right;
+                        .num{
+                            font-weight: bold;
+                            font-size: .32rem;
+                            line-height: 0.42rem;
+                            color: #223848;
+                            display: block;
+                        }
+                        .price{
+                            font-size: .26rem;
+                            color: #7f8b95;
+                            display: block;
+                        }
+                    }
+                }
+                
+            }
+        }
+    }
+
+    .search{
+        position: relative;
+        padding: .16rem;
+        background-color: #fbfcfd;
+        border-bottom: 0.01rem solid #eef0f2;
+        .box{
+            margin: 0 1.1rem 0 .88rem;
+            input{
+                width: 100%;
+                height: 0.62rem;
+                background-color: #f2f4f5;
+                padding: 0 .24rem;
+            }
+        }
+        .go_back{
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            i{
+                font-size: .52rem;
+            }
+        }
+        .setting{
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.1rem;
+            text-align: center;
+            background-color: transparent;
+            display: block;
+        }
+    }
+    .result{
+        .empty{
+            height: 100vh;
+            line-height: 1rem;
+            text-align: center;
+            color: #ccc;
+        }
+    }
+}
