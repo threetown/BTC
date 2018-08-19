@@ -18,10 +18,10 @@ Vue.use(Router)
 const routes = [
   {
     path: '/', name: 'layout', component: layout,
-    redirect: '/init',
+    redirect: '/index',
     meta: { title: 'imToken国际版' },
     children: [
-      { path: '/index', name: 'index', component: index, meta: { title: '首页' }},
+      { path: '/index', name: 'index', component: index, meta: { title: '首页', requireAuth: true }},
     ]
   },
   { path: "/init", name: 'init', component: init, meta: { title: '创建身份' }},
@@ -48,7 +48,19 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title ? to.meta.title : 'imToken'
-  next()
+
+  let userLoginState = localStorage.getItem('userIsLogin')
+  if(to.matched.some(r => r.meta.requireAuth)) {
+    if(userLoginState && userLoginState === 'true') {
+      next()
+    }else{
+      next({
+        path: '/init'
+      })
+    }
+  }else{
+    next()
+  }
 })
 
 export default router;
