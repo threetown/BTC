@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <div class="go_back"></div>
+        <div class="go_back"><i class="iconfont icon-arrow"  @click="$router.go(-1)"></i></div>
         <div class="title">
             <i class="iconfont icon-wallet"></i>
             <h2>创建身份</h2>
@@ -42,17 +42,17 @@ export default {
           self.toast.loading = true;
           self.toast.state = 'loading';
           self.toast.text = '正在创建'
-          // TODO: localStorage
-          let userInfo = {"name": self.form.uname}
+          let getUserInfo = JSON.parse(localStorage.getItem('userInfo'));
+          let userInfo = Object.assign({}, getUserInfo, {"name": self.form.uname})
           localStorage.setItem("userInfo", JSON.stringify(userInfo))
           setTimeout(() => {
             self.toast.state = true;
             self.toast.state = 'success';
             self.toast.text = '创建成功'
-          },2000)
+          },1000)
           setTimeout(() => {
             self.$router.push({ name: 'backup' })
-          },4000)
+          },3000)
       }
   },
   computed: {

@@ -1,6 +1,7 @@
 .login{
+    position: relative;
     height: 100vh;
-    padding-top: 1.85rem;
+    // padding-top: 1.85rem;
     .title{
         text-align: center;
         i{
@@ -11,6 +12,18 @@
             font-size: .52rem;
             color: #000;
             margin-top: 0.32rem;
+        }
+    }
+    .go_back{
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1.25rem;
+        padding: 0.28rem;
+        i{
+            font-size: .68rem;
+            color: #041e30;
         }
     }
     .login_from{
@@ -81,6 +94,41 @@
         p{
             font-size: .28rem;
             line-height: 0.46rem;
+            margin-bottom: 0.38rem;
+            text-align: center;
+            &.backup_error{
+                color: #e54c2e;
+            }
+        }
+        
+        &_memory_words{
+            padding: 0.38rem;
+            background-color: #f2f4f5;
+            margin: 0.32rem 0;
+            p{
+                font-weight: bold;
+                font-size: .28rem;
+                line-height: .44rem;
+                color: #11293a;
+            }
+        }
+        &_memory_tags{
+            min-height: 1.96rem;
+            padding: .38rem;
+            span{
+                font-size: .28rem;
+                line-height: .44rem;
+                color: #11293a;
+                border: .01rem solid #c2c8cc;
+                background-color: #fff;
+                height: 0.6rem;
+                line-height: 0.58rem;
+                padding: 0 .12rem;
+                display: inline-block;
+                margin-right: 0.15rem;
+                border-radius: .06rem;
+                margin-bottom: 0.24rem;
+            }
         }
     }
     .fixed_bottom_box{
