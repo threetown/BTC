@@ -7,13 +7,70 @@
         </div>
         <div class="backup">
             <p>请按顺序点击助记词，以确认您正确备份。</p>
-            <p class="backup_error">助记词顺序不正确，请校对</p>
+            <p v-show="checkState" class="backup_error">助记词顺序不正确，请校对</p>
         </div>
-        <div class="backup_memory_words">
-            <p>nasty jacket screen future upper depart flight genre shuffle guide answer replace</p>
+        <div class="backup_memory_words backup_memory_tags">
+            <span v-for="items in MemoryCurrentWords">{{items}}</span>
+        </div>
+        <div class="backup_memory_check backup_memory_tags">
+            <span v-for="items in MemoryCheckArr" @click="checkMemory(items)">{{items}}</span>
         </div>
         <div class="fixed_bottom_box">
-            <button type="button" class="fixed_bottom_button">完成</button>
+            <button type="button" class="fixed_bottom_button"  :disabled="!checkMemoryState ? true : false" @click.prevent="submitCheck">完成</button>
         </div>
     </div>
 </template>
+
+<script>
+import * as tools from 'src/util/tools'
+import * as basicConfig from 'src/config/basicConfig'
+
+export default {
+  name: 'memorycheck',
+  data() {
+      return {
+         MemoryCurrentWords: [],
+         MemoryCheckWords: []
+      }
+  },
+  methods: {
+      checkMemory(v){
+          if(this.checkState){
+              return false;
+          }
+          this.MemoryCurrentWords.push(v)
+          let i = this.MemoryCheckArr.indexOf(v);
+          this.MemoryCheckArr.splice(i, 1)
+      },
+      submitCheck(){
+          localStorage.setItem("userIsLogin", true)
+          this.$router.push({
+              name: 'index'
+          })
+      }
+  },
+  computed: {
+      checkState(){
+          let result = false;
+          let l = this.MemoryCurrentWords.length;
+          if(l > 0 && this.MemoryCurrentWords[l-1] !== this.MemoryCheckWords[l-1]){
+            result = true;
+          }else{
+              result = false;
+          }
+          return result;
+      },
+      checkMemoryState(){
+          let result = false;
+          if(this.MemoryCurrentWords.toString() === this.MemoryCheckWords.toString()){
+              result = true;
+          }
+          return result;
+      }
+  },
+  created(){
+      this.MemoryCheckArr = basicConfig.memoryWords.slice();
+      this.MemoryCheckWords = JSON.parse(localStorage.getItem('userInfo')).memoryWords.split(' ');
+  }
+}
+</script>
