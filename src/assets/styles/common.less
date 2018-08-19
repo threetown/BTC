@@ -28,3 +28,39 @@ body {
     font-size: 16px;
 }
 @import "iconfont/iconfont.css";
+
+// vue transition style
+.router-fade-enter-active, .router-fade-leave-active {
+    transition: opacity .3s;
+}
+.router-fade-enter, .router-fade-leave-active {
+    opacity: 0;
+}
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .3s;
+}
+.fade-enter, .fade-leave-active {
+opacity: 0;
+}
+.slid_up-enter-active, .slid_up-leave-active {
+transition: all .3s;
+}
+.slid_up-enter, .slid_up-leave-active {
+transform: translate3d(0,10rem,0)
+}
+.router-slid-enter-active, .router-slid-leave-active {
+transition: all .4s;
+}
+.router-slid-enter, .router-slid-leave-active {
+transform: translate3d(2rem, 0, 0);
+opacity: 0;
+}
+.router-rating_page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 18;
+    background-color: #fff;
+}

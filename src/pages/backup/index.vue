@@ -13,6 +13,9 @@
             <router-link to="/backup/memory" class="fixed_bottom_button">备份助记词</router-link>
         </div>
 
+        <transition name="router-slid" mode="in-out">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
