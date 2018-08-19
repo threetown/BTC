@@ -9,7 +9,7 @@
             <p class="tac">请仔细抄写下方肋记词，我们将在下一步验证。</p>
         </div>
         <div class="backup_memory_words">
-            <p>nasty jacket screen future upper depart flight genre shuffle guide answer replace</p>
+            <p>{{memoryWords}}</p>
         </div>
         <div class="fixed_bottom_box">
             <router-link to="/backup/memory/check" class="fixed_bottom_button">下一步</router-link>
@@ -19,8 +19,31 @@
         </transition>
     </div>
 </template>
+
 <script>
+import * as tools from 'src/util/tools'
+import * as basicConfig from 'src/config/basicConfig'
+
 export default {
-  name: 'memory'
+  name: 'memory',
+  data() {
+      return {}
+  },
+  computed: {
+      memoryWords(){
+          const self = this;
+          let getUserInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+          let result = '';
+          if(getUserInfo && getUserInfo.memoryWords){
+              result = getUserInfo.memoryWords;
+          }else{
+            result = tools.randomArray(basicConfig.memoryWords.slice()).join(' ')
+            let data = Object.assign({}, getUserInfo, { 'memoryWords': result })
+            localStorage.setItem("userInfo", JSON.stringify(data))
+          }
+          return result;
+      }
+  }
 }
 </script>
