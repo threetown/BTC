@@ -9,6 +9,7 @@ const login = r => require.ensure([], () => r(require('../pages/login')), 'login
 const forget = r => require.ensure([], () => r(require('../pages/forget')), 'forget')
 const backup = r => require.ensure([], () => r(require('../pages/backup/')), 'backup')
 const memory = r => require.ensure([], () => r(require('../pages/backup/children/memory')), 'memory')
+const checkmemory = r => require.ensure([], () => r(require('../pages/backup/children/checkmemory')), 'checkmemory')
 
 const notFound = r => require.ensure([], () => r(require('components/error/404')), 'notFound')
 
@@ -30,7 +31,11 @@ const routes = [
     path: "/backup", name: 'backup', component: backup, meta: { title: '备份钱包' },
     children: [
       {
-        path: "memory", name: 'memory', component: memory, meta: { title: '备份肋记词' }}
+        path: "memory", name: 'memory', component: memory, meta: { title: '备份肋记词' },
+        children: [
+          { path: "check", name: 'checkmemory', component: checkmemory, meta: { title: '确认肋记词' }}
+        ]
+      }
     ]
   },
   { path: "/*", name: 'error', component: notFound, meta: { title: '404-页面不存在' }},

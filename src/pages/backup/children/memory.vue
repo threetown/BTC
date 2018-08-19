@@ -14,6 +14,9 @@
         <div class="fixed_bottom_box">
             <router-link to="/backup/memory/check" class="fixed_bottom_button">下一步</router-link>
         </div>
+        <transition name="router-slid" mode="in-out">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 <script>
