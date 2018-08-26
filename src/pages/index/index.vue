@@ -12,7 +12,7 @@
                 <div class="code">0x869dbe65...Ba5369bcBd<i class="iconfont icon-copy"></i></div>
             </div>
             <div class="more"><i class="iconfont icon-more"></i></div>
-            <div class="price">￥ <span>0</span></div>
+            <div class="price">￥ <span>0.00</span></div>
         </div>
         <div class="wallet_list">
             <div class="header"><h2>资产</h2> <i class="iconfont icon-add" @click="search"></i></div>
@@ -21,8 +21,8 @@
                     <i class="icon" :style="'background-image: url(./static/images/wallet/'+ items.type +'.png)'"></i>
                     <span class="name">{{items.name}}</span>
                     <div class="info">
-                        <b class="num">{{items.num}}</b>
-                        <span class="price">￥{{items.price}}</span>
+                        <b class="num">{{items.num}}.00</b>
+                        <span class="price">￥{{items.price}}.00</span>
                     </div>
                 </li>
             </ul>

@@ -61,10 +61,10 @@
             },
             fetchData(){
                 let type = this.$route.params.type;
-                if(type === 'ETH'){
+                // if(type === 'ETH'){
                     this.token.title = type;
                     // this.token.fulltype = 'ETHEREUM'
-                }
+                // }
             },
             fetchResult(type){
                 this.token.currentType = type;
