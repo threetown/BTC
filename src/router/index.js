@@ -5,6 +5,15 @@ const layout = r => require.ensure([], () => r(require('../pages/layout')), 'lay
 
 const index = r => require.ensure([], () => r(require('../pages/index')), 'index')
 const search = r => require.ensure([], () => r(require('../pages/index/children/search')), 'search')
+const token = r => require.ensure([], () => r(require('../pages/index/children/token')), 'token')
+const tokenDetails = r => require.ensure([], () => r(require('../pages/index/children/tokenDetails')), 'tokenDetails')
+
+const marking = r => require.ensure([], () => r(require('../pages/marking')), 'marking')
+
+const news = r => require.ensure([], () => r(require('../pages/news')), 'news')
+const searchApp = r => require.ensure([], () => r(require('../pages/news/searchApp')), 'searchApp')
+
+const ucenter = r => require.ensure([], () => r(require('../pages/ucenter')), 'ucenter')
 
 const init = r => require.ensure([], () => r(require('../pages/init')), 'init')
 const login = r => require.ensure([], () => r(require('../pages/login')), 'login')
@@ -26,9 +35,23 @@ const routes = [
       {
         path: '/index', name: 'index', component: index, meta: { title: '首页', requireAuth: true },
         children: [
-          { path: "search", name: 'search', component: search, meta: { title: '搜索' }}
+          { path: "search", name: 'search', component: search, meta: { title: '搜索' }},
+          { path: "token/:type", name: 'token', component: token, meta: { title: 'token详情' },children: [
+            { path: "details", name: 'tokenDetails', component: tokenDetails, meta: { title: 'token详情' }}
+          ]},
         ]
       },
+      {
+        path: 'marking', name: 'marking', component: marking, meta: { title: '行情', requireAuth: true }
+      },
+      {
+        path: 'news', name: 'news', component: news, meta: { title: '浏览', requireAuth: true }, children: [
+          { path: 'search', name: 'searchApp', component: searchApp, meta: { title: '搜索' }}
+        ]
+      },
+      {
+        path: 'ucenter', name: 'ucenter', component: ucenter, meta: { title: '个人中心', requireAuth: true }
+      }
     ]
   },
   { path: "/init", name: 'init', component: init, meta: { title: '创建身份' }},

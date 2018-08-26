@@ -17,8 +17,8 @@
         <div class="wallet_list">
             <div class="header"><h2>资产</h2> <i class="iconfont icon-add" @click="search"></i></div>
             <ul class="list">
-                <li v-for="items in list">
-                    <i class="icon" :style="{'background-image': 'url(/static/images/wallet/'+ items.type +'.png)'}"></i>
+                <li v-for="items in list" @click="routerPush(items.type)">
+                    <i class="icon" :style="'background-image: url(./static/images/wallet/'+ items.type +'.png)'"></i>
                     <span class="name">{{items.name}}</span>
                     <div class="info">
                         <b class="num">{{items.num}}</b>
@@ -75,6 +75,14 @@
         methods: {
             triggerWallet(){
 
+            },
+            routerPush(type){
+                // TODO: [vue-router] Route with name 'token' does not exist
+                // this.$router.push({
+                //     name: 'token',
+                //     parmas: { type: 'ETH' }
+                // })
+                this.$router.push({ path: `/index/token/${type}` })
             },
             search(){
                 this.$router.push({
