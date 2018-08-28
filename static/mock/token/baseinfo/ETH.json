@@ -1,0 +1,11 @@
+{
+    "website": "https://www.ethereum.org",
+    "contract_address": "0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe",
+    "community": [
+        { "type": "facebook", "url": "https://www.facebook.com/ethereumproject" },
+        { "type": "twitter", "url": "https://twitter.com/ethereum" }
+    ],
+    "publish_date": "2015-07-30",
+    "initial_price": "1 BTC = 2000 ETH",
+    "overview": "The crypto-fuel for the Ethereum network"
+}

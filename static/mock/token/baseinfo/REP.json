@@ -1,0 +1,12 @@
+{
+    "website": "https://www.augur.net/",
+    "contract_address": "0x1985365e9f78359a9B6AD760e32412f4a445E862",
+    "community": [
+        { "type": "facebook", "url": "https://www.facebook.com/augurproject"},
+        { "type": "twitter", "url": "https://twitter.com/AugurProject" },
+        { "type": "slack", "url": "http://invite.augur.net/" }
+    ],
+    "publish_date": "2015-08-01",
+    "initial_price": "0.602 USD",
+    "overview": "An open-source, decentralized, peer-to-peer oracle and prediction market platform built on the Ethereum blockchain."
+}

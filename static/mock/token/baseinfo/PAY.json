@@ -1,0 +1,12 @@
+{
+    "website": "http://www.tenx.tech/",
+    "contract_address": "0xB97048628DB6B661D4C2aA833e95Dbe1A905B280",
+    "community": [
+        { "type": "facebook", "url": "https://www.facebook.com/tenxwallet/"},
+        { "type": "twitter", "url": "https://twitter.com/tenxwallet" },
+        { "type": "slack", "url": "https://ten-x.herokuapp.com/" }
+    ],
+    "publish_date": "2017-06-24",
+    "initial_price": "0.00285714 ETH | 0.87 USD",
+    "overview": "TenX connects your blockchain assets for everyday use. TenX’s debit card and banking licence will allow us to be a hub for the blockchain ecosystem to connect for real-world use cases."
+}

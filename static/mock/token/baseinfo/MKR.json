@@ -1,0 +1,9 @@
+{
+    "website": "https://makerdao.com/",
+    "contract_address": "0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2",
+    "community": [
+        { "type": "slack", "url": "https://chat.makerdao.com/" }
+    ],
+    "publish_date": "2017-01-30",
+    "overview": "Maker is a Decentralized Autonomous Organization that creates and insures the dai stablecoin on the Ethereum blockchain."
+}

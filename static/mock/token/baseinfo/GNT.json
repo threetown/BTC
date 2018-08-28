@@ -1,0 +1,11 @@
+{
+    "website": "https://golem.network/",
+    "contract_address": "0xa74476443119A942dE498590Fe1f2454d7D4aC0d",
+    "community": [
+        { "type": "twitter", "url": "https://twitter.com/golemproject" },
+        { "type": "facebook", "url": "https://www.facebook.com/golemproject/" }
+    ],
+    "publish_date": "016-11-11",
+    "initial_price": "0.001 ETH | 0.01 USD",
+    "overview": "Golem is going to create the first decentralized global market for computing power."
+}

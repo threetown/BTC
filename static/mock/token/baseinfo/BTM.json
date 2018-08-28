@@ -1,0 +1,10 @@
+{
+    "website": "https://bytom.io/",
+    "contract_address": "0xcb97e65f07da24d46bcdd078ebebd7c6e6e3d750",
+    "community": [
+        { "type": "twitter", "url": "https://twitter.com/Bytom_Official" }
+    ],
+    "publish_date": "2017-06-20",
+    "initial_price": "0.0001 ETH | 0.038 USD",
+    "overview": "A digital asset layer protocol is the infrastructure of asset Internet."
+}

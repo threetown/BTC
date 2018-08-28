@@ -3,7 +3,14 @@
         <div class="token_header">
             <div class="go_back"><i class="iconfont icon-arrow" @click="$router.go(-1)"></i></div>
             <h2 class="title">{{token.title}}</h2>
-            <div class="details"><i class="iconfont icon-shape" @click="routerTokenDeatils(token.title)"></i></div>
+            <div class="details">
+                <router-link :to="{
+                        path: '/index/token/details',
+                        query: { id: token.id, name: token.name, symbol: token.title }
+                    }">
+                    <i class="iconfont icon-shape"></i>
+                    </router-link>
+                </div>
         </div>
         <div class="token_chart">
             <div class="empty">{{chart.loadTips}}</div>
@@ -32,6 +39,8 @@
                 token: {
                     fulltype: '',
                     title: '',
+                    id: '',
+                    name: '',
                     chart: '',
                     currentType: 'all',
                     type: [
@@ -49,10 +58,10 @@
             }
         },
         created(){
+            this.token.title = this.$route.query.symbol;
+            this.token.id = this.$route.query.id;
+            this.token.name = this.$route.query.name;
             this.init()
-        },
-        watch: {
-            '$route': 'fetchData'
         },
         methods: {
             init(){
@@ -60,122 +69,21 @@
                 this.fetchResult('all');
             },
             fetchData(){
-                let type = this.$route.params.type;
-                // if(type === 'ETH'){
-                    this.token.title = type;
-                    // this.token.fulltype = 'ETHEREUM'
-                // }
+
             },
             fetchResult(type){
                 this.token.currentType = type;
             },
-            routerTokenDeatils(type){
-                this.$router.push({ path: `/index/token/${type}/details` })
-            }
+            // routerTokenDeatils(type){
+            //     this.$router.push({
+            //         path: 'details',
+            //         query: { id: query.id, name: query.name, symbol: query.symbol }
+            //     })
+            // }
         }
     }
 </script>
 
 <style lang="less">
-    .token{
-        &_header{
-            position: relative;
-            height: 1.14rem;
-            line-height: 1.14rem;
-            text-align: center;
-            border-bottom: 0.02rem solid #e6e8eb;
-            background-color: #fbfcfd;
-            .go_back{
-                position: absolute;
-                left: 0;
-                top: 50%;
-                width: 1rem;
-                -webkit-transform: translateY(-50%);
-                transform: translateY(-50%);
-                text-align: center;
-                i{
-                    font-size: 0.62rem;
-                    color: #041d31;
-                }
-            }
-            .title{
-                margin: 0 1.2rem;
-                text-align: center;
-                font-size: .36rem;
-            }
-            .details{
-                position: absolute;
-                right: 0;
-                top: 0;
-                width: 1rem;
-                i{
-                    font-size: .42rem;
-                    color: #00182a;
-                }
-            }
-        }
-        &_chart{
-            position: relative;
-            background: #fafcfd;
-            border-bottom: 0.2rem solid #f2f4f5;
-            min-height: 4.2rem;
-        }
-        &_list{
-            &_header{
-                height: 0.82rem;
-                border-bottom: 0.02rem solid #f6f7f8;
-                display: flex;
-                li{
-                    flex: 1;
-                    text-align: center;
-                    span{
-                        font-weight: bold;
-                        font-size: .26rem;
-                        line-height: 0.76rem;
-                        color: #4a5c69;
-                        display: block;
-                        margin: 0 .16rem;
-                        border-bottom: 0.04rem solid transparent;
-                    }
-                    &.actived{
-                        span{
-                            color: #00091c;
-                            border-bottom-color: #00091c;
-                        }
-                    }
-                }
-            }
-        }
-        &_tools{
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            border-top: 0.02rem solid #edeff1;
-            height: 0.95rem;
-            padding: 0.12rem 2%;
-            background: #fbfcfd;
-            display:flex;
-            justify-content:space-between;
-            .button{
-                height: 100%;
-                width: 48%;
-                font-size: .28rem;
-                border-radius: .06rem;
-                color: #fff;
-                &_income{
-                    background-color: #0bbed5;
-                }
-                &_pay{
-                    background-color: #008ded;
-                }
-            }
-        }
-        .empty{
-            font-size: .14rem;
-            color: #3d88c1;
-            text-align: center;
-            padding: 0.22rem;
-        }
-    }
+    @import url("~assets/styles/token");
 </style>

@@ -1,0 +1,12 @@
+{
+    "website": "https://decentraland.org/",
+    "contract_address": "0x0f5d2fb29fb7d3cfee444a200298f468908cc942",
+    "community": [
+        { "type": "facebook", "url": "https://www.facebook.com/decentraland/"},
+        { "type": "twitter", "url": "https://twitter.com/decentraland" },
+        { "type": "slack", "url": "https://slack.decentraland.org/" }
+    ],
+    "publish_date": "2017-08-17",
+    "initial_price": "0.00007992 ETH | 0.024 USD",
+    "overview": "Decentraland is a virtual reality platform powered by the Ethereum blockchain."
+}

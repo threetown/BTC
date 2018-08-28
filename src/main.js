@@ -7,6 +7,9 @@ import './assets/js/rem'
 
 Vue.config.productionTip = false
 
+import filters from 'src/filters/'
+Object.keys(filters).forEach(key => Vue.filter(key, filters[key]))
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

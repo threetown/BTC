@@ -1,0 +1,11 @@
+{
+    "website": "https://eos.io/",
+    "contract_address": "0x5ca9a71b1d01849c0a95490cc00559717fcf0d1d",
+    "community": [
+        { "type": "facebook", "url": "https://www.facebook.com/eosblockchain" },
+        { "type": "twitter", "url": "https://twitter.com/eos_io" }
+    ],
+    "publish_date": "",
+    "initial_price": "",
+    "overview": "The most powerful infrastructure for decentralized applications"
+}
