@@ -36,8 +36,8 @@ const routes = [
         path: '/index', name: 'index', component: index, meta: { title: '首页', requireAuth: true },
         children: [
           { path: "search", name: 'search', component: search, meta: { title: '搜索' }},
-          { path: "token/:type", name: 'token', component: token, meta: { title: 'token详情' },children: [
-            { path: "details", name: 'tokenDetails', component: tokenDetails, meta: { title: 'token详情' }}
+          { path: "token", name: 'token', component: token, meta: { title: 'token详情' },children: [
+            { path: "details", name: 'tokenDetails', component: tokenDetails, meta: { title: 'Token Profile' }}
           ]},
         ]
       },
