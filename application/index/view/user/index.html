@@ -18,7 +18,7 @@ var returnrul = "{:url('user/index')}";
 
 	<div class="nav-bar-block" nav-bar="active">
 		<ion-header-bar class="bar-stable headerbar bar bar-header" align-title="center">
-			<div class="title title-center header-item" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">个人中心</div>
+			<div class="title title-center header-item" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">{$Think.lang.user_center}</div>
 		</ion-header-bar>
 	</div>
 </ion-nav-bar>
@@ -27,26 +27,26 @@ var returnrul = "{:url('user/index')}";
 <ion-nav-view class="view-container" nav-view-transition="ios" nav-view-direction="none" nav-swipe=""><ion-tabs class="tabs-icon-top navbar pane tabs-bottom tabs-standard" abstract="true" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);"><div class="tab-nav tabs">
 
 
-<a href="{:Url('/index/index/index/token/'.$token)}"  class="iconfont icon--6 tabnone tab-item " style=""><span class="tab-title ng-binding hangqing" >商品行情</span></a>
-<a href="{:url('/index/order/hold/token/'.$token)}" class="iconfont icon--7 tabnone tab-item " style=""><span class="tab-title ng-binding jiaoyijilu" >交易记录</span></a>
-<a href="{:url('/index/user/index/token/'.$token)}"  class="iconfont icon--8 tabnone tab-item tab-item-active" style=""><span class="tab-title ng-binding" >个人账户</span></a>
+<a href="{:Url('/index/index/index/token/'.$token)}"  class="iconfont icon--6 tabnone tab-item " style=""><span class="tab-title ng-binding hangqing" >{$Think.lang.hangqing}</span></a>
+<a href="{:url('/index/order/hold/token/'.$token)}" class="iconfont icon--7 tabnone tab-item " style=""><span class="tab-title ng-binding jiaoyijilu" >{$Think.lang.buiness_record}</span></a>
+<a href="{:url('/index/user/index/token/'.$token)}"  class="iconfont icon--8 tabnone tab-item tab-item-active" style=""><span class="tab-title ng-binding" >{$Think.lang.user_count}</span></a>
 
 </div>
 
-<ion-nav-view name="tab-profile" class="view-container tab-content" nav-view="active" nav-view-transition="ios" nav-view-direction="swap" nav-swipe=""><ion-view view-title="个人中心" hide-nav-bar="false" class="pane" state="tab.profile" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);">
+<ion-nav-view name="tab-profile" class="view-container tab-content" nav-view="active" nav-view-transition="ios" nav-view-direction="swap" nav-swipe=""><ion-view view-title="{$Think.lang.user_center}" hide-nav-bar="false" class="pane" state="tab.profile" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);">
     <ion-content class="personalbg scroll-content ionic-scroll scroll-content-false  has-header has-tabs" scroll="false">
 		<header style="padding: .2rem .12rem;">
 			<i onClick="app_exit()" class="iconfont icon--9"></i>
 			<!-- <article>
 				<img src="{$userinfo.portrait?$userinfo.portrait:'__HOME__/img/logobg.jpg'}">
 			</article> -->
-			<p class="ng-binding" style="text-align: left;margin-top: -0.1rem;">{$userinfo.nickname?$userinfo.nickname:$userinfo.username}({if $userinfo.rank >0} 代理商 {else/}普通会员{/if}) </p>
-            <p class="ng-binding" style="color: #fff;text-align: left;">邀请码：{$userinfo.token}<span class="iconfont icon--3" onClick="respass()"></span></p>
+			<p class="ng-binding" style="text-align: left;margin-top: -0.1rem;">{$userinfo.nickname?$userinfo.nickname:$userinfo.username}({if $userinfo.rank >0} {$Think.lang.agent} {else/}{$Think.lang.member}{/if}) </p>
+            <p class="ng-binding" style="color: #fff;text-align: left;">{$Think.lang.share_coed}：{$userinfo.token}<span class="iconfont icon--3" onClick="respass()"></span></p>
 			<!-- <p class="ng-binding"></p> -->
             <div style="color: #fdbe19;">
-                <div>余额：￥{$userinfo.usermoney}</div>
-                <div>奖金：￥{$userinfo.jjprice}</div>
-                <div>盈亏：￥100.00</div>
+                <div>{$Think.lang.balance}：￥{$userinfo.usermoney}</div>
+                <div>{$Think.lang.prize}：￥{$userinfo.jjprice}</div>
+                <div>{$Think.lang.yingkui}：￥100.00</div>
             </div>
 		</header>
 		<ul>
@@ -59,14 +59,14 @@ var returnrul = "{:url('user/index')}";
 			<li ng-show="is_get_pay_list" class="" style="">
 				<section onClick="show_user_modal('modal-deposit')" class="">
 					<i class="iconfont icon--5 rujin"></i>
-					<p>充值</p>
+					<p>{$Think.lang.pay}</p>
 				</section>
 			</li>
 
 			<li>
 				<section onClick="show_user_modal('modal-withdraw')" class="">
 					<i class="iconfont icon--4 chujin"></i>
-					<p>提现</p>
+					<p>{$Think.lang.income}</p>
 				</section>
 			</li>
 			<!-- <li>
@@ -84,7 +84,7 @@ var returnrul = "{:url('user/index')}";
 			<li>
 				<section onClick="show_user_modal('modal-bank2')" class="">
 					<i class="iconfont icon--16 chujin"></i>
-					<p>奖金转余额</p>
+					<p>{$Think.lang.jiangjinzhuangyuer}</p>
 				</section>
 			</li>
 
@@ -101,7 +101,7 @@ var returnrul = "{:url('user/index')}";
             <div class="user_btn">
                 <a href="{:url('cashlist')}">
                     <p class="user_btn_p">
-                        <i style="color:#1fc65b;font-size:0.25rem" class="iconfont icon-BTC zijin"></i>　提现记录
+                        <i style="color:#1fc65b;font-size:0.25rem" class="iconfont icon-BTC zijin"></i>　{$Think.lang.income_record}
                         <span class="right">></span>
                     </p>
                 </a>
@@ -109,7 +109,7 @@ var returnrul = "{:url('user/index')}";
              <div class="user_btn">
                 <a>
                     <p class="user_btn_p">
-                        <i style="color:#3c9bf3;font-size:0.25rem" class="iconfont icon--13 zijin"></i>　奖金明细
+                        <i style="color:#3c9bf3;font-size:0.25rem" class="iconfont icon--13 zijin"></i>　{$Think.lang.prize_list}
                         <span class="right">></span>
                     </p>
                 </a>
@@ -117,7 +117,7 @@ var returnrul = "{:url('user/index')}";
              <div class="user_btn">
                 <a>
                     <p class="user_btn_p">
-                        <i style="color:#1fc65b;font-size:0.25rem" class="iconfont icon-xinyonghezuoshe3 zijin"></i>　我的团队
+                        <i style="color:#1fc65b;font-size:0.25rem" class="iconfont icon-xinyonghezuoshe3 zijin"></i>　{$Think.lang.my_team}
                         <span class="right">></span>
                     </p>
                 </a>
@@ -126,7 +126,7 @@ var returnrul = "{:url('user/index')}";
             <div class="user_btn">
                 <a href="{:url('order/hold')}">
                     <p class="user_btn_p">
-                        <i style="color:#ebac34;font-size:0.25rem" class="iconfont icon--2 zijin"></i>　历史订单
+                        <i style="color:#ebac34;font-size:0.25rem" class="iconfont icon--2 zijin"></i>　{$Think.lang.order_history}
                         <span class="right">></span>
                     </p>
                 </a>
@@ -134,7 +134,7 @@ var returnrul = "{:url('user/index')}";
             <div class="user_btn">
                 <a href="{:url('ercode')}">
                     <p class="user_btn_p">
-                        <i style="color:#D99BFF;font-size:0.25rem" class="iconfont icon--10 zijin"></i>　推广链接
+                        <i style="color:#D99BFF;font-size:0.25rem" class="iconfont icon--10 zijin"></i>　{$Think.lang.share_link}
                         <span class="right">></span>
                     </p>
                 </a>
@@ -142,7 +142,7 @@ var returnrul = "{:url('user/index')}";
             <div class="user_btn">
                 <a href="javascript:;" onClick="respass()">
                     <p class="user_btn_p">
-                        <i style="color:#42FFEE;font-size:0.25rem" class="iconfont icon--3 zijin"></i>　修改信息
+                        <i style="color:#42FFEE;font-size:0.25rem" class="iconfont icon--3 zijin"></i>　{$Think.lang.mod_info}
                         <span class="right">></span>
                     </p>
                 </a>
@@ -150,7 +150,7 @@ var returnrul = "{:url('user/index')}";
             <div class="user_btn">
                 <a href="javascript:;" onClick="app_exit()">
                     <p class="user_btn_p">
-                        <i style="color:#6EFF00;font-size:0.25rem" class="iconfont icon--9 zijin"></i>　退出
+                        <i style="color:#6EFF00;font-size:0.25rem" class="iconfont icon--9 zijin"></i>　{$Think.lang.logout}
                         <span class="right">></span>
                     </p>
                 </a>
@@ -164,14 +164,14 @@ var returnrul = "{:url('user/index')}";
 
 <div class="modal-backdrop hide modal-bank"><div class="modal-wrapper" ng-transclude=""><ion-modal-view class="order-modal bank-info-modal modal slide-in-up ng-leave ng-leave-active">
     <ion-header-bar class="order-modal-header bar bar-header">
-        <h1 class="title" style="left: 54px; right: 54px;">银行资料</h1>
+        <h1 class="title" style="left: 54px; right: 54px;">{$Think.lang.bank_information}</h1>
         <div class="close" onClick="hide_user_modal('modal-bank')">
             <i class="icon ion-ios-arrow-left"></i>
         </div>
     </ion-header-bar>
     <ul>
     	<li>
-    		<span>银行名称</span>
+    		<span>{$Think.lang.bank_name}</span>
 	    	<select name="bankno" class=" bankno">
 
 	    		{volist name="banks" id="vo"}
@@ -183,9 +183,9 @@ var returnrul = "{:url('user/index')}";
 	    	</select>
     	</li>
         <li>
-            <span>省份</span>
+            <span>{$Think.lang.province}</span>
             <select id="province" class="province" name="province" style="">
-				<option value="">请选择</option>
+				<option value="">{$Think.lang.select}</option>
             	{volist name="province" id="vo"}
 
 	    		<option  value="{$vo.id}" {if isset($mybank) && $mybank['provinceid'] == $vo['id']} selected="selected" {/if} >{$vo.name}</option>
@@ -195,34 +195,34 @@ var returnrul = "{:url('user/index')}";
             </select>
         </li>
         <li>
-            <span>市名</span>
+            <span>{$Think.lang.city}</span>
             <select id="city" name="cityno" class="city">
             	{if isset($mybank)}
             	<option value="{$mybank.cityno}">{:getarea($mybank['cityno'])}</option>
             	{else/}
-				<option value="">请选择</option>
+				<option value="">{$Think.lang.select}</option>
 				{/if}
             </select>
         </li>
         <li>
-            <span>开户支行</span>
-            <input type="text" placeholder="支行地址" name="address" class="address" value="{:isset($mybank)?$mybank.address:''}">
+            <span>{$Think.lang.account_bank}</span>
+            <input type="text" placeholder="{$Think.lang.account_bank}" name="address" class="address" value="{:isset($mybank)?$mybank.address:''}">
         </li>
         <li>
-            <span>开户名</span>
-            <input type="text" placeholder="持卡人姓名" name="accntnm"  class="accntnm" value="{:isset($mybank)?$mybank.accntnm:''}">
+            <span>{$Think.lang.account_name}</span>
+            <input type="text" placeholder="{$Think.lang.card_name}" name="accntnm"  class="accntnm" value="{:isset($mybank)?$mybank.accntnm:''}">
         </li>
         <li>
-            <span>卡号</span>
-            <input type="text" placeholder="银行卡号" name="accntno" class="accntno" value="{:isset($mybank)?$mybank.accntno:''}">
+            <span>{$Think.lang.bank_number}</span>
+            <input type="text" placeholder="{$Think.lang.bank_number}" name="accntno" class="accntno" value="{:isset($mybank)?$mybank.accntno:''}">
         </li>
         <li>
-            <span>身份证号</span>
-            <input type="text" placeholder="身份证号" name="scard" class=" scard" value="{:isset($mybank)?$mybank.scard:''}">
+            <span>{$Think.lang.id_number}</span>
+            <input type="text" placeholder="{$Think.lang.id_number}" name="scard" class=" scard" value="{:isset($mybank)?$mybank.scard:''}">
         </li>
         <li>
-            <span>预留手机号</span>
-            <input type="text" placeholder="预留手机号" name="phone"  class="phone" value="{:isset($mybank)?$mybank.phone:''}">
+            <span>{$Think.lang.reserve_phone}</span>
+            <input type="text" placeholder="{$Think.lang.reserve_phone}" name="phone"  class="phone" value="{:isset($mybank)?$mybank.phone:''}">
         </li>
 
         {if isset($mybank)}
@@ -230,8 +230,8 @@ var returnrul = "{:url('user/index')}";
         {/if}
     </ul>
     <div class="button-bar">
-        <a class="button button-balanced" onClick="update_user()">确定</a>
-        <a class="button button-dark" onClick="hide_user_modal('modal-bank')">关闭</a>
+        <a class="button button-balanced" onClick="update_user()">{$Think.lang.ensure}</a>
+        <a class="button button-dark" onClick="hide_user_modal('modal-bank')">{$Think.lang.close}</a>
     </div>
 
 </ion-modal-view></div></div>
@@ -241,7 +241,7 @@ var returnrul = "{:url('user/index')}";
 <div class="modal-wrapper" ng-transclude="">
 <ion-modal-view class="order-modal modal slide-in-up ng-leave ng-leave-active model-bank-tab">
     <ion-header-bar class="order-modal-header bar bar-header">
-        <h1 class="title" style="left: 54px; right: 54px;">用户入金</h1>
+        <h1 class="title" style="left: 54px; right: 54px;">{$Think.lang.user_income_money}</h1>
         <div class="close" onClick="hide_user_modal('modal-deposit')">
             <i class="icon ion-ios-arrow-left"></i>
         </div>
@@ -252,9 +252,9 @@ var returnrul = "{:url('user/index')}";
                 
             </div>
             
-            <p>扫描二维码支付</p>
-            <p><a href="">充值成功点击刷新</a></p>
-            <p><a href="javascript:;" onClick="pay_code_area(0)">关闭</a></p>
+            <p>{$Think.lang.scan_code_to_payment}</p>
+            <p><a href="">{$Think.lang.recharge_refresh}</a></p>
+            <p><a href="javascript:;" onClick="pay_code_area(0)">{$Think.lang.close}</a></p>
             
         </div>
     </div>
@@ -267,7 +267,7 @@ var returnrul = "{:url('user/index')}";
  			  <p>&nbsp;</p>
  			  <p>&nbsp;</p>
  			  <p>&nbsp;</p>
-    <div class="g-Total gray9">请选择需要充值的金额</div>
+    <div class="g-Total gray9">{$Think.lang.select_payment_money}</div>
     <section class="clearfix g-member">
         <div class="g-Recharge">
             <ul id="ulOption">
@@ -283,7 +283,7 @@ var returnrul = "{:url('user/index')}";
         <form action="{:url('index/user/huiqingzf')}" method="post">
             <article class="clearfix mt10 m-round g-pay-ment g-bank-ct">
                 <ul id="ulBankList">
-                    <li  style="display:none" class="gray6" style="width: 100%;padding: 5px 0px 0px 10px;height: 50px;">您选择充值：<label
+                    <li  style="display:none" class="gray6" style="width: 100%;padding: 5px 0px 0px 10px;height: 50px;">{$Think.lang.select_payment}：<label
                             class="input" style="border: 1px solid #EAEAEA;height: 35px;font-size:30px;">
                             <input type="text" name="price" id="price" placeholder="如：50" value="50"
                                    style="width: 170px;color: red;font-size:20px;">   <!--默认输入金额值50-->
@@ -292,9 +292,9 @@ var returnrul = "{:url('user/index')}";
 					
                     <li style="display:none" class="gray6"
                         style="width: 100%;padding: 5px 0px 0px 10px;>
-                        充值用户名：<label
+                        {$Think.lang.payment_username}：<label
                             class="input" style="border: 1px solid #EAEAEA;height: 30px;font-size: 30px;">
-                            <input type="text" name="user" id="user" placeholder="用户名" value="{$userinfo.username}"
+                            <input type="text" name="user" id="user" placeholder="{$Think.lang.payment_username}" value="{$userinfo.username}"
                                    style="width: 180px;font-size: 16px;">
                         </label></li>
                                 
@@ -316,7 +316,7 @@ var returnrul = "{:url('user/index')}";
 
             <div class="mt10 f-Recharge-btn">
 
-                <button id="btnSubmit" type="submit" href="javascript:;" class="orgBtn">确认支付</button>
+                <button id="btnSubmit" type="submit" href="javascript:;" class="orgBtn">{$Think.lang.confirm_pay}</button>
             </div>
         </form>
     </section>
@@ -365,7 +365,7 @@ var returnrul = "{:url('user/index')}";
 	</div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 0px;"></div></div></ion-content>
 </ion-modal-view></div></div><div class="modal-backdrop hide modal-withdraw"><div class="modal-backdrop-bg"></div><div class="modal-wrapper" ng-transclude=""><ion-modal-view class="order-modal modal slide-in-up ng-leave ng-leave-active">
     <ion-header-bar class="order-modal-header bar bar-header">
-        <h1 class="title" style="left: 54px; right: 54px;">用户出金</h1>
+        <h1 class="title" style="left: 54px; right: 54px;">{$Think.lang.user_pay_money}</h1>
         <div class="close" onClick="hide_user_modal('modal-withdraw')">
             <i class="icon ion-ios-arrow-left"></i>
         </div>
@@ -375,13 +375,13 @@ var returnrul = "{:url('user/index')}";
 		{if !isset($mybank)}
     	<header class="ifnone_add_bank"  onclick="go_add_bank()">
         	<p>+</p>
-        	<p>添加银行卡</p>
+        	<p>{$Think.lang.add_bank}</p>
         </header>
         <div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
 		{else}
         <div  class="cash">
 	        <header class="coldbg hotbg"  style="">
-	        	<p class="ng-binding">{$mybank.bank_nm} </p><span class="editc" onClick="go_add_bank()">修改</span>
+	        	<p class="ng-binding">{$mybank.bank_nm} </p><span class="editc" onClick="go_add_bank()">{$Think.lang.modify}</span>
 	        	<p class="ng-binding">**** **** **** {$sub_bankno}</p>
 	        	<i class="iconfont red">{:substr($mybank.bank_nm,0,3)}</i>
 	        </header>
@@ -389,17 +389,17 @@ var returnrul = "{:url('user/index')}";
 	        <article>
 	        	<span>
 	        		<i class="iconfont icon--4"></i>
-	        		提现金额：
+	        		{$Think.lang.amount_of_cash}：
 	        	</span>
-	        	<input type="number" placeholder="请输入出金金额" ng-model="outAmount.outamount"  class="cash-price ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-required">
+	        	<input type="number" placeholder="{$Think.lang.amount_of_cash}" ng-model="outAmount.outamount"  class="cash-price ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-required">
 	        </article>
-	        <section  class="ng-binding">单次提现金额至少￥<span class="cash_min" attrmax="{$conf.cash_max}">{$conf.cash_min}</span></section>
+	        <section  class="ng-binding">{$Think.lang.min_income}￥<span class="cash_min" attrmax="{$conf.cash_max}">{$conf.cash_min}</span></section>
 	        <footer>
-	        	余额：<span class="ng-binding">{$userinfo.usermoney}</span>
-	        	手续费：<span  class="ng-binding reg_par" attrdata="{$conf.reg_par}">{$conf.reg_par}%</span>
-	        	实际到账：<span  class="ng-binding true_price" style="display:none"></span>
+	        	{$Think.lang.balance}：<span class="ng-binding">{$userinfo.usermoney}</span>
+	        	{$Think.lang.fee}：<span  class="ng-binding reg_par" attrdata="{$conf.reg_par}">{$conf.reg_par}%</span>
+	        	{$Think.lang.actual_account}：<span  class="ng-binding true_price" style="display:none"></span>
 	        </footer>
-	        <button class="newbutton outmoneybtn"  onclick="out_withdraw()">确认出金</button>
+	        <button class="newbutton outmoneybtn"  onclick="out_withdraw()">{$Think.lang.confirm_income}</button>
         </div>
 		{/if}
     </div>
@@ -407,7 +407,7 @@ var returnrul = "{:url('user/index')}";
     </div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 0px;"></div></div></ion-content>
 </ion-modal-view></div></div><div class="modal-backdrop hide modal-olist"><div class="modal-backdrop-bg"></div><div class="modal-wrapper" ng-transclude=""><ion-modal-view class="order-modal modal slide-in-up ng-leave ng-leave-active">
     <ion-header-bar class="order-modal-header bar bar-header">
-        <h1 class="title" style="left: 54px; right: 54px;">资金流水</h1>
+        <h1 class="title" style="left: 54px; right: 54px;">{$Think.lang.capital_flow}</h1>
         <div class="close" onClick="hide_user_modal('modal-olist')">
             <i class="icon ion-ios-arrow-left"></i>
         </div>
@@ -438,7 +438,7 @@ var returnrul = "{:url('user/index')}";
                 		</section>
                 	</div>
                 	<article class="today_list_footer" style="display: none;">
-                		<p class="ng-binding">详情：{$vo.content}</p>
+                		<p class="ng-binding">{$Think.lang.details}：{$vo.content}</p>
                 	</article>
                 </li>
 				{/volist}
@@ -447,7 +447,7 @@ var returnrul = "{:url('user/index')}";
 		</div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="height: 631px; transform: translate3d(0px, 10px, 0px) scaleY(1);"></div></div></ion-scroll>
     </div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 0px;"></div></div></ion-content>
     <div class="button-bar">
-        <a class="button button-dark" onClick="hide_user_modal('modal-olist')">关闭</a>
+        <a class="button button-dark" onClick="hide_user_modal('modal-olist')">{$Think.lang.close}</a>
     </div>
 </ion-modal-view></div></div>
 
@@ -457,7 +457,7 @@ var returnrul = "{:url('user/index')}";
 
 <div class="modal-backdrop hide modal-bank1"><div class="modal-wrapper" ng-transclude=""><ion-modal-view class="order-modal bank-info-modal modal slide-in-up ng-leave ng-leave-active">
     <ion-header-bar class="order-modal-header bar bar-header">
-        <h1 class="title" style="left: 54px; right: 54px;">联系客服</h1>
+        <h1 class="title" style="left: 54px; right: 54px;">{$Think.lang.contact_kf}</h1>
         <div class="close" onClick="hide_user_modal('modal-bank1')">
             <i class="icon ion-ios-arrow-left"></i>
         </div>
@@ -466,11 +466,11 @@ var returnrul = "{:url('user/index')}";
  			<div class="erwema_img" align="center">
             	<img alt="我的二维码" src="/static/index/img/2ma.png" style="width:20%;left: 54px; right: 54px;">
 				            <p class="STYLE1">&nbsp;</p>
-				            <p style="color:#42FFEE" class="STYLE1">扫描二维码</p>
+				            <p style="color:#42FFEE" class="STYLE1">{$Think.lang.scan_code}</p>
  			</div>
     <div class="button-bar">
 
-        <a class="button button-dark" onClick="hide_user_modal('modal-bank1')">关闭</a>
+        <a class="button button-dark" onClick="hide_user_modal('modal-bank1')">{$Think.lang.close}</a>
     </div>
 	
 </ion-modal-view></div></div>
@@ -484,28 +484,28 @@ var returnrul = "{:url('user/index')}";
 <div class="modal-wrapper" ng-transclude="">
 <ion-modal-view class="order-modal modal slide-in-up ng-leave ng-leave-active">
     <ion-header-bar class="order-modal-header bar bar-header">
-        <h1 class="title" style="left: 54px; right: 54px;">奖金转余额</h1>
+        <h1 class="title" style="left: 54px; right: 54px;">{$Think.lang.jiangjinzhuangyuer}</h1>
         <div class="close" onClick="hide_user_modal('modal-bank2')">
             <i class="icon ion-ios-arrow-left"></i>
         </div>
     </ion-header-bar>
 <br /><br /><br /><br />
  	<div class="erwema_img" align="center">
-	<p style="color:#fdbe19">奖金：<span class="ng-binding" id="myjjprice">{$userinfo.jjprice}</span></p>
+	<p style="color:#fdbe19">{$Think.lang.prize}：<span class="ng-binding" id="myjjprice">{$userinfo.jjprice}</span></p>
 	           <li class="newinput" ng-show="show_signup_code">
                   <span class="input-text">
-                      奖金额度:
+                      {$Think.lang.prize_quota}:
                   </span>
-                  <input type="text" placeholder="奖金额度" name="jjprice" id="jjprice" class="username ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" style="">
+                  <input type="text" placeholder="{$Think.lang.prize_quota}" name="jjprice" id="jjprice" class="username ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" style="">
               </li>
 
 	     
           <button class="newbutton" id="jjpricebtn" style="margin-top: 0.2rem;width:70%" >
-              提交
+              {$Think.lang.submit}
           </button>
 	  </div>
     <div class="button-bar">
-        <a class="button button-dark" onClick="hide_user_modal('modal-bank2')">关闭</a>
+        <a class="button button-dark" onClick="hide_user_modal('modal-bank2')">{$Think.lang.close}</a>
     </div>
 
 
