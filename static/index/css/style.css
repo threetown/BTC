@@ -7,7 +7,7 @@
 /*交易页面样式*/
 @import url("trade.css");
 /*图标库*/
-@import url("iconfont.css");
+@import url("iconfont.css?v=0.201808301548");
 /*订单历史倒计时动画效果*/
 .move_width{
     transition-property: width;
