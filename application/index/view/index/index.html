@@ -1,143 +1,339 @@
 {include file="head" /}
 
+<style>
+	html{
+		overflow-y: auto;
+	}
+
+	.blurryboy {
+    position: fixed;
+    display: block;
+    z-index: -1;
+    left: -0.75%;
+    top: -0.5%;
+    width: 102%;
+    height: 102%;
+    background-image: url(/static/index/img/purple_bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+}
+	.priceList {
+  overflow: hidden;
+  padding: 12px 0;
+}
+.priceList li {
+  color: #fff;
+  border-radius: 5px;
+  padding: 12px 5px;
+  width: 32%;
+  float: left;
+  text-align: center;
+}
+.priceList li:nth-child(1) {
+  background-color: #2b6aed;
+}
+.priceList li:nth-child(2) {
+  background-color: #7f72ee;
+  margin: 0 2%;
+}
+.priceList li:nth-child(3) {
+  background-color: #4db872;
+}
+/*.content-background {
+    background-color: #343a40;
+}*/
+.newsList {
+  background-color: #eef4fe;
+  height: 42px;
+  line-height: 32px;
+  padding: 5px 12px;
+  border-radius: 21px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.newsList li {
+  font-size: 14px;
+  height: 32px;
+  color: #767678;
+}
+.actionBox {
+  padding: 20px;
+  background: #dde0e9;
+  overflow: hidden;
+  margin-top: 15px;
+}
+.actionBox button {
+  position: relative;
+  width: 24%;
+  height: 46px;
+  font-size: 16px;
+  line-height: 46px;
+  float: left;
+  background-color: #1a1c1d;
+  color: #fff;
+  border: none;
+}
+.actionBox button:nth-child(1):after,
+.actionBox button:nth-child(2):after{
+	position: absolute;
+	content: "";
+	right: 0;
+	top: 50%;
+	width: 1px;
+	height: 12px;
+	background-color: #000;
+	transform: translateY(-50%);
+}
+.actionBox button:last-child {
+  float: right;
+  background-color: #fff;
+  color: #27282d;
+}
+
+.tools{
+    color: #fff;
+}
+.tools .inner .title{
+	font-size: 20px;
+	font-weight: 300;
+	color: #fff;
+}
+.jumbotron{
+	background-color: #252529;
+    border-top: 1px solid #1d2024;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 2px #22252a;
+    margin-bottom: 15px;
+}
+.teamscore{
+	background-color: #1a1c1d;
+    border-top: 1px solid #1d2024;
+    border-bottom: 1px solid #676b70;
+    padding: 15px;
+}
+.tools .inner li,
+.tools .inner a{
+	color: #fff;
+	font-size: 16px;
+	line-height: 32px;
+	text-decoration: none;
+}
+.tools .inner a{
+	float: right;
+}
+.hr{
+	margin-top: 15px;
+    margin-bottom: 15px;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+</style>
 <body ng-app="starter" ng-controller="AppCtrl" class="grade-a platform-browser platform-win32 platform-ready">
+	
+		<div class="blurryboy"></div>
 
 
-<ion-nav-bar class="bar-stable headerbar nav-bar-container" nav-bar-transition="ios" nav-bar-direction="none" nav-swipe="">
-<div class="nav-bar-block" nav-bar="cached"><ion-header-bar class="bar-stable headerbar bar bar-header" align-title="center"><div class="title title-center hangqing header-item" style="transition-duration: 0ms; transform: translate3d(-176.414px, 0px, 0px); opacity: 0;"></div><div class="buttons buttons-right" style="transition-duration: 0ms; opacity: 0;"></div></ion-header-bar></div><div class="nav-bar-block" nav-bar="active"><ion-header-bar class="bar-stable headerbar bar bar-header" align-title="center"><div class="buttons buttons-left" style="transition-duration: 0ms;"></div><div class="title hangqing title-center header-item" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);"></div></ion-header-bar></div></ion-nav-bar>
-<ion-nav-view class="view-container" nav-view-transition="ios" nav-view-direction="enter" nav-swipe=""><ion-tabs class="tabs-icon-top navbar pane tabs-bottom tabs-standard" abstract="true" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);"><div class="tab-nav tabs">
+    <img src="http://dpic.tiankong.com/h2/08/QJ6481298281.jpg" alt="" style="width: 100%">
+<div style="padding: 12px;">
+	<div class="jumbotron">
+	    <ul class="priceList"><li><div class="title">总资产</div></li> <li><div class="title">可提现</div></li> <li><div class="title">盈亏</div></li></ul>
+	    <ul class="newsList"><li>关于BTC合约非正常“穿”调查和处理通知</li></ul>
+	</div>
 
-  <ion-tab href="#/tab/qoute" class="iconfont icon--6 tabnone"></ion-tab>
+	<div class="trade-content content-background">
+        <!-- kline copy from goods.html -->
+        <div class="goodstitle" style="font-size: 16px;color: #fff;line-height: 22px;padding: 12px;"></div>
+        <header>
+			<section  class="ng-binding rise data-price" style="">{$pro.Price}</section>
+			<section>
+				<p class="kaipan"></p>
+				<p  class="ng-binding rise data-open" style="">{$pro.Open}</p>
+			</section>
+			<section>
+				<p class="zuidi"></p>
+				<p  class="ng-binding rise data-low" style="">{$pro.Low}</p>
+			</section>
+			<section>
+				<p class="zuigao"></p>
+				<p  class="ng-binding rise data-high" style="">{$pro.High}</p>
+			</section>
+		</header>
+		<nav>
+             <article>
+                <span class="trade-chart-type stock active Kxian" onclick="change_chart_type('stock')"></span>
+                <span class="trade-chart-type line zoushi" onclick="change_chart_type('line')"></span>
+            </article> 
+            <section class="trade-chart-period 1M active" onclick="change_chart_period('1M')">1M</section>
+            <section class="trade-chart-period 5M" onclick="change_chart_period('5M')">5M</section>
+            <section class="trade-chart-period 15M" onclick="change_chart_period('15M')">15M</section>
+            <section class="trade-chart-period 30M" onclick="change_chart_period('30M')">30M</section>
+            <section class="trade-chart-period 1H" onclick="change_chart_period('1H')">1H</section>
+            <section class="trade-chart-period 1D" onclick="change_chart_period('1D')">1D</section>
+        </nav>
+		<div>
+             <div id="container">
+               <div id="ecKx"  style="height: 250px;"></div>
+               <div class="txt1"><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span><span class="e"></span></div>
+               <!-- <div class="txt2"><span class="a DIFF"><i></i></span><span class="b DEA"><i></i></span><span class="c MACD"><i></i></span></div> -->
 
-  <ion-tab href="#/tab/history/0" class="iconfont icon--7 tabnone"></ion-tab>
+             </div>
+                
+        </div>
+        <!-- kline end -->
+    </div>
 
-  <ion-tab href="#/tab/profile" class="iconfont icon--8 tabnone"></ion-tab>
+    <div class="actionBox jumbotron"><button type="button">下单</button> <button type="button">复投</button> <button type="button">充值</button> <button type="button">提现</button></div>
 
-<a href="{:Url('/index/index/index/token/'.$token)}"  class="iconfont icon--6 tabnone tab-item tab-item-active" style=""><span class="tab-title ng-binding hangqing" ></span></a>
-<a href="{:url('/index/order/hold/token/'.$token)}" class="iconfont icon--7 tabnone tab-item" style=""><span class="tab-title ng-binding jiaoyijilu" ></span></a>
-<a href="{:url('/index/user/index/token/'.$token)}"  class="iconfont icon--8 tabnone tab-item" style=""><span class="tab-title ng-binding" >个人账户</span></a>
-
+    <div class="tools jumbotron">
+    	<div class="inner">
+    		<h3 class="title">数据</h3>
+    		<hr class="hr">
+    		<ul class="teamscore">
+    			<li>交易记录 <a href="">进入查看</a></li>
+    			<li>奖金记录 <a href="">进入查看</a></li>
+    			<li>帮助中心 <a href="">进入查看</a></li>
+    			<li>个人数据 <a href="">进入查看</a></li>
+    		</ul>
+    	</div>
+    </div>
 </div>
-<ion-nav-view name="tab-qoute" class="view-container tab-content" nav-view="active" nav-view-transition="ios" nav-view-direction="none" nav-swipe="">
-    <ion-view view-title="" hide-nav-bar="false" class="pane" state="tab.qoute" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);">
-    <ion-content style="top: 0px;" class="content-background scroll-content ionic-scroll scroll-content-false  has-header has-tabs" scroll="false">
-
-        <div class="slide-qoute slider" delegate-handle="slide-qoute" on-slide-changed="slide_change($index)" show-pager="false" style="visibility: visible;"><div class="slider-slides" ng-transclude="" style="width: 100%;">
-            <!-- ngRepeat: c in category_list --><ion-slide ng-repeat="c in category_list" class="slider-slide" data-index="0" style="width: 100%; left: 0px; transition-duration: 300ms; transform: translate(0px, 0px) translateZ(0px);">
-                <div class="qoute-view">
-                    <div class="qoute-view-header">
-                        <ul>
-                            <li class="shangpinmingcheng"></li>
-                            <li class="xianjia"></li>
-                            <li class="zuidi"></li>
-                            <li class="zuigao"></li>
-                        </ul>
-                    </div>
-                    <div class="qoute-view-content">
-                        <ion-scroll class="scroll-view ionic-scroll scroll-y"><div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
-                            
-						<!-- {volist name="pro" id="vo"} -->
-                            <ul onclick="parent.location='{:url('goods/goods',array('pid'=>$vo['pid'],'token'=>$token))}';"  id="pid{$vo.pid}">
-                                <li>
-                                    <a href="javascript:;" class="ng-binding prtitle"></a>
-                                </li>
-                                <li>
-                                    <a  href="javascript:;" class="ng-binding rise-value now-value">
-                                        
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;" class="ng-binding rise rise-low">
-                                        
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;" class="ng-binding rise rise-high">
-                                        
-                                    </a>
-                                </li>
-                            </ul>
-						<!-- {/volist} -->
-
-                        </div>
-                        
-						<div class="order-p" id="J_order" style="display:none;">
-							<div class="order-item">
-								<i class="iconfont icon--5 rujin" style="color:#ecb540"></i> <span class="order-phone" style="color:#999"></span> &nbsp;<span class="order-rs" style="color:red"></span>
-							</div>
-						</div>
-						
-						<script>
-						var order_list;
-						var order_index = 0;
-						var max_rand = 50;
-						function order_show(){
-							if(order_list != null && $("#J_order").is(":hidden")){
-								if(order_index>=max_rand){
-									order_index = 0;
-								}
-								$("#J_order").find(".order-phone").html(order_list[order_index]['phone']);
-								$("#J_order").find(".order-rs").html('赢利+'+order_list[order_index]['price']+'元');
-								$("#J_order").show();
-								window.setTimeout(function(){
-									$("#J_order").hide();
-								},1500);
-								order_index++;
-							}
-						}
-						function order_start(){
-							var rand = Math.ceil(Math.random()*100);
-							if(rand>=80){
-								if(order_list!=null){
-									order_show();
-								}
-							}
-						}
-						$(document).ready(function(){
-							$.ajax({
-								type: "GET",
-								contentType: "application/json;charset=utf-8",
-								url: "/index/index/ajax_order",
-								data: null,
-								dataType: "json",
-								complete: function () { },
-								success: function (result) {
-									order_list = result;
-								},
-								error: function (result, status) { }
-							});
-							/*
-							$.get("/index/index/ajax_order",null,function(data){
-								order_list = data;
-							});
-							*/
-							window.setInterval(order_start,1000);
-						});
-						</script>
-
-                        </ion-scroll>
-                    </div>
-                </div>
-            </ion-slide>
-
-        </div>
-        </div>
-    </ion-content>
-</ion-view></ion-nav-view></ion-tabs></ion-nav-view>
-
 <script>
+
+var order_type = 0;
+var order_pid = {$pro.pid};
+var order_price = {$pay_choose_arr[0]};
+var order_sen = {$protime[0]*60};
+var order_shouyi = {$proscale[0]};
+var newprice = {$pro.Price};  //实时价格
+var rawData_data = [];
+var my_money = {$userinfo.usermoney?$userinfo.usermoney:'0'};
+var my_jjprice = {$userinfo.jjprice?$userinfo.jjprice:'0'};
+var order_min_price = {:getconf('order_min_price')};
+var order_max_price = {:getconf('order_max_price')};
+
+
+</script>
+
+<script src="__HOME__/js/lk/chardata.js?2017aaa"></script>
+    <script src="__HOME__/js/echarts.js"></script>
+    <script src="__HOME__/js/m.js"></script>
+    <script>
+
+
+    
+    //setInterval('getdata({$pro.pid})', 1000);
+    //window.setInterval('getMaindata()',5000);
+    //setInterval("window.location.reload();",1000*60*5);
+    
+    var titurl = '{:url("/index/goods/goodsinfo")}'
+    $.post(titurl, 'pid={$pro.pid}', function(_res){
+          
+        var res = jQuery.parseJSON(Base64.decode(_res)); 
+        if(res.ptitle){
+            $('.goodstitle').html(res.ptitle);
+        }else{
+           // history.go(-1);
+        }
+    })
+
+    var charturl = '{:url("getchart")}';
+    $.get(charturl,function(_res){
+        
+          
+        var res = jQuery.parseJSON(Base64.decode(_res)); 
+        
+
+        $.each(res,function(k,v){
+            $('.'+k).html(v);
+        })
+    })
+    
+    </script>
+
+    <script>
+    var flag = false;
+    var cur = {
+        x:0,
+        y:0
+    }
+    var nx,ny,dx,dy,x,y ;
+    function down(){
+        flag = true;
+        var touch ;
+        if(event.touches){
+            touch = event.touches[0];
+        }else {
+            touch = event;
+        }
+        cur.x = touch.clientX;
+        cur.y = touch.clientY;
+        dx = div2.offsetLeft;
+        dy = div2.offsetTop;
+    }
+    function move(){
+
+        if(flag){
+            var touch ;
+            if(event.touches){
+                touch = event.touches[0];
+            }else {
+                touch = event;
+            }
+            nx = touch.clientX - cur.x;
+            ny = touch.clientY - cur.y;
+            x = dx+nx;
+            y = dy+ny;
+            div2.style.left = x+"px";
+            div2.style.top = y +"px";
+            //阻止页面的滑动默认事件
+            document.addEventListener("touchmove",function(){
+                event.preventDefault();
+            },false);
+        }
+    }
+    //鼠标释放时候的函数
+    function end(){
+        flag = false;
+    }
+    var div2 = document.getElementById("div2");
+    div2.addEventListener("mousedown",function(){
+        down();
+    },false);
+    div2.addEventListener("touchstart",function(){
+        down();
+    },false)
+    div2.addEventListener("mousemove",function(){
+        move();
+    },false);
+    div2.addEventListener("touchmove",function(){
+        move();
+    },false)
+    document.body.addEventListener("mouseup",function(){
+        end();
+    },false);
+    div2.addEventListener("touchend",function(){
+        end();
+    },false);
+</script>
+<!-- <script>
 
 var charturl = '{:url("getchart")}';
 $.get(charturl,function(_res){
 
 
     var res = jQuery.parseJSON(Base64.decode(_res)); 
-
     $.each(res,function(k,v){
         $('.'+k).html(v);
     })
 })
-</script>
+</script> -->
 </body></html>
 
 <script src="__HOME__/js/lk/index.js">ajaxpro()</script>

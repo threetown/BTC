@@ -72,7 +72,7 @@ function autoHeight(){
 	var ecBarH=$("#ecBar").height();
 	var WinHss=$(window).height();
 	$("footer").height(WinHss-headerbarH-headerH-NavH-tradebarH-ecBarH);
-	$("#ecKx").height(WinHss-headerbarH-headerH-NavH-tradebarH-ecBarH);
+	// $("#ecKx").height(WinHss-headerbarH-headerH-NavH-tradebarH-ecBarH);
 }
 
 function change_chart_period(type){
@@ -357,7 +357,8 @@ function gotoecharts(data){
 						   left: 20,
 							right:70,
 							top:'5%',
-							bottom:180
+							// bottom:180
+							bottom: '12%'
 						},
 						{
 							left: 20,
@@ -576,51 +577,51 @@ function gotoecharts(data){
                                 }
                             }
 				},
-				 {
-					xAxisIndex: 1,
-					yAxisIndex: 1,
-					name: 'MACD', 
-					type: 'bar',
-					data:macd,//
-					smooth: true,
-					symbolSize:1,
-					animationDuration:0,
-					itemStyle:{
-						normal:{
-							color:'rgba(31,198,98,1)'
-						}
-					}
-				},
-					{
-						xAxisIndex: 1,
-						yAxisIndex: 1,
-						name: 'diff',//快
-						type: 'line',
-						data: diff,
-						smooth: true,
-						animationDuration:0,
-						symbolSize:1,
-						lineStyle:{
-							normal:{
-								color:"#13E9EC"
-							}
-						}
-					},
-					{
-						xAxisIndex: 1,
-						yAxisIndex: 1,
-						name: 'dea',
-						type: 'line',
-						data: dea,//慢
-						smooth: true,
-						animationDuration:0,
-						symbolSize:1,
-						lineStyle:{
-							normal:{
-								color:"#FA2E42"
-							}
-						}
-					}
+				//  {
+				// 	xAxisIndex: 1,
+				// 	yAxisIndex: 1,
+				// 	name: 'MACD', 
+				// 	type: 'bar',
+				// 	data:macd,//
+				// 	smooth: true,
+				// 	symbolSize:1,
+				// 	animationDuration:0,
+				// 	itemStyle:{
+				// 		normal:{
+				// 			color:'rgba(31,198,98,1)'
+				// 		}
+				// 	}
+				// },
+					// {
+					// 	xAxisIndex: 1,
+					// 	yAxisIndex: 1,
+					// 	name: 'diff',//快
+					// 	type: 'line',
+					// 	data: diff,
+					// 	smooth: true,
+					// 	animationDuration:0,
+					// 	symbolSize:1,
+					// 	lineStyle:{
+					// 		normal:{
+					// 			color:"#13E9EC"
+					// 		}
+					// 	}
+					// },
+					// {
+					// 	xAxisIndex: 1,
+					// 	yAxisIndex: 1,
+					// 	name: 'dea',
+					// 	type: 'line',
+					// 	data: dea,//慢
+					// 	smooth: true,
+					// 	animationDuration:0,
+					// 	symbolSize:1,
+					// 	lineStyle:{
+					// 		normal:{
+					// 			color:"#FA2E42"
+					// 		}
+					// 	}
+					// }
 				
 			]
 		};
