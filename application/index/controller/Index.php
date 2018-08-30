@@ -17,7 +17,9 @@ class Index extends Base
     {
         if(!input('token')){
             $this->redirect('index/index?token='.$this->token);
+            // $this->redirect('goods/goods/pid/23?token='.$this->token);
         }
+        $this->redirect('/index/goods/goods/pid/23/');
         //获取产品信息
         $pro = Db::name('productinfo')->alias('pi')->field('pi.pid,pi.ptitle,pd.Price,pd.UpdateTime,pd.Low,pd.High')
         		->join('__PRODUCTDATA__ pd','pd.pid=pi.pid')

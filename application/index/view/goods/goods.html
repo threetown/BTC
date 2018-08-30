@@ -41,6 +41,22 @@ var order_max_price = {:getconf('order_max_price')};
         </a>
     </span></div><div class="title title-center header-item goodstitle" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px); left: 48px; right: 48px;"> </div></ion-header-bar></div></ion-nav-bar>
 <ion-nav-view class="view-container"  nav-view-transition="ios" nav-view-direction="exit" nav-swipe="">
+
+<ion-tabs class="tabs-icon-top navbar pane tabs-bottom tabs-standard" abstract="true" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);"><div class="tab-nav tabs">
+
+  <ion-tab href="#/tab/qoute" class="iconfont icon--6 tabnone"></ion-tab>
+
+  <ion-tab href="#/tab/history/0" class="iconfont icon--7 tabnone"></ion-tab>
+
+  <ion-tab href="#/tab/profile" class="iconfont icon--8 tabnone"></ion-tab>
+
+<a href="{:Url('/index/index/index/token/'.$token)}"  class="iconfont icon--6 tabnone tab-item tab-item-active" style=""><span class="tab-title ng-binding hangqing" ></span></a>
+<a href="{:url('/index/order/hold/token/'.$token)}" class="iconfont icon--7 tabnone tab-item" style=""><span class="tab-title ng-binding jiaoyijilu" ></span></a>
+<a href="{:url('/index/user/index/token/'.$token)}"  class="iconfont icon--8 tabnone tab-item" style=""><span class="tab-title ng-binding" >个人账户</span></a>
+
+</div>
+<ion-nav-view name="tab-qoute" class="view-container tab-content" nav-view="active" nav-view-transition="ios" nav-view-direction="none" nav-swipe="">
+
 <ion-view   class="trade-view pane"  hide-nav-bar="false" state="trade" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);">
     
     <ion-content  class="trade-content content-background scroll-content ionic-scroll  has-header" scroll="true"><div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
@@ -82,7 +98,7 @@ var order_max_price = {:getconf('order_max_price')};
         </footer>
 
     </div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 0px;"></div></div></ion-content>
-	<div class="trade_bar">
+	<div class="trade_bar" style="bottom:  50px;">
     {if $isopen == 1}
 		<section onclick="toggle_history_order_panel()" class="">
 			<i class="icon--14 iconfont"></i>
@@ -381,7 +397,7 @@ var order_max_price = {:getconf('order_max_price')};
     </div>
 </div>
 </div>
-</ion-view></ion-nav-view>
+</ion-view></ion-nav-view></ion-tabs></ion-nav-view>
 
 
 <div class="backdrop"></div><div class="ionic_toast"><div class="toast_section" ng-class="ionicToast.toastClass" ng-style="ionicToast.toastStyle" ng-click="hideToast()" style="display: none; opacity: 0;"><span class="ionic_toast_close"><i class="ion-android-close toast_close_icon"></i></span><span ng-bind-html="ionicToast.toastMessage" class="ng-binding"></span></div></div><div class="click-block click-block-hide"></div><div class="modal-backdrop hide"><div class="modal-backdrop-bg"></div><div class="modal-wrapper" ng-transclude=""><ion-modal-view class="order-modal modal slide-in-up ng-leave ng-leave-active">
@@ -505,5 +521,19 @@ var order_max_price = {:getconf('order_max_price')};
     div2.addEventListener("touchend",function(){
         end();
     },false);
+</script>
+
+<script>
+
+var charturl = '{:url("/index/index/getchart")}';
+$.get(charturl,function(_res){
+
+
+    var res = jQuery.parseJSON(Base64.decode(_res)); 
+
+    $.each(res,function(k,v){
+        $('.'+k).html(v);
+    })
+})
 </script>
 </ion-modal-view></div></div></body></html>

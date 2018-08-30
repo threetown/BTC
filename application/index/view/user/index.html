@@ -29,19 +29,25 @@ var returnrul = "{:url('user/index')}";
 
 <a href="{:Url('/index/index/index/token/'.$token)}"  class="iconfont icon--6 tabnone tab-item " style=""><span class="tab-title ng-binding hangqing" >商品行情</span></a>
 <a href="{:url('/index/order/hold/token/'.$token)}" class="iconfont icon--7 tabnone tab-item " style=""><span class="tab-title ng-binding jiaoyijilu" >交易记录</span></a>
-<a href="{:url('/index/user/index/token/'.$token)}"  class="iconfont icon--8 tabnone tab-item tab-item-active" style=""><span class="tab-title ng-binding" >个人账户￥{$userinfo.usermoney}</span></a>
+<a href="{:url('/index/user/index/token/'.$token)}"  class="iconfont icon--8 tabnone tab-item tab-item-active" style=""><span class="tab-title ng-binding" >个人账户</span></a>
 
 </div>
 
 <ion-nav-view name="tab-profile" class="view-container tab-content" nav-view="active" nav-view-transition="ios" nav-view-direction="swap" nav-swipe=""><ion-view view-title="个人中心" hide-nav-bar="false" class="pane" state="tab.profile" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);">
     <ion-content class="personalbg scroll-content ionic-scroll scroll-content-false  has-header has-tabs" scroll="false">
-		<header>
+		<header style="padding: .2rem .12rem;">
 			<i onClick="app_exit()" class="iconfont icon--9"></i>
-			<article>
+			<!-- <article>
 				<img src="{$userinfo.portrait?$userinfo.portrait:'__HOME__/img/logobg.jpg'}">
-			</article>
-			<p class="ng-binding">{$userinfo.nickname?$userinfo.nickname:$userinfo.username}({if $userinfo.rank >0} 代理商 {else/}普通会员{/if})邀请码：{$userinfo.token}<span class="iconfont icon--3" onClick="respass()"></span></p>
-			<p class="ng-binding">余额：{$userinfo.usermoney} | 奖金：{$userinfo.jjprice}</p>
+			</article> -->
+			<p class="ng-binding" style="text-align: left;margin-top: -0.1rem;">{$userinfo.nickname?$userinfo.nickname:$userinfo.username}({if $userinfo.rank >0} 代理商 {else/}普通会员{/if}) </p>
+            <p class="ng-binding" style="color: #fff;text-align: left;">邀请码：{$userinfo.token}<span class="iconfont icon--3" onClick="respass()"></span></p>
+			<!-- <p class="ng-binding"></p> -->
+            <div style="color: #fdbe19;">
+                <div>余额：￥{$userinfo.usermoney}</div>
+                <div>奖金：￥{$userinfo.jjprice}</div>
+                <div>盈亏：￥100.00</div>
+            </div>
 		</header>
 		<ul>
 			<!-- <li>
@@ -63,7 +69,7 @@ var returnrul = "{:url('user/index')}";
 					<p>提现</p>
 				</section>
 			</li>
-			<li>
+			<!-- <li>
 				<section onClick="show_user_modal('modal-olist')" class="">
 					<i class="iconfont icon--- zijin"></i>
 					<p>资金流水</p>
@@ -74,7 +80,7 @@ var returnrul = "{:url('user/index')}";
 					<i class="iconfont icon--8 chujin"></i>
 					<p>客服</p>
 				</section>
-			</li>
+			</li> -->
 			<li>
 				<section onClick="show_user_modal('modal-bank2')" class="">
 					<i class="iconfont icon--16 chujin"></i>
@@ -95,13 +101,27 @@ var returnrul = "{:url('user/index')}";
             <div class="user_btn">
                 <a href="{:url('cashlist')}">
                     <p class="user_btn_p">
-                        <i style="color:#1fc65b;font-size:0.25rem" class="iconfont icon--4 chujin"></i>　提现记录
+                        <i style="color:#1fc65b;font-size:0.25rem" class="iconfont icon-BTC zijin"></i>　提现记录
                         <span class="right">></span>
                     </p>
                 </a>
             </div>
-
-          
+             <div class="user_btn">
+                <a>
+                    <p class="user_btn_p">
+                        <i style="color:#3c9bf3;font-size:0.25rem" class="iconfont icon--13 zijin"></i>　奖金明细
+                        <span class="right">></span>
+                    </p>
+                </a>
+            </div>
+             <div class="user_btn">
+                <a>
+                    <p class="user_btn_p">
+                        <i style="color:#1fc65b;font-size:0.25rem" class="iconfont icon-xinyonghezuoshe3 zijin"></i>　我的团队
+                        <span class="right">></span>
+                    </p>
+                </a>
+            </div>
 
             <div class="user_btn">
                 <a href="{:url('order/hold')}">
@@ -114,7 +134,7 @@ var returnrul = "{:url('user/index')}";
             <div class="user_btn">
                 <a href="{:url('ercode')}">
                     <p class="user_btn_p">
-                        <i style="color:#D99BFF;font-size:0.25rem" class="iconfont icon--10 zijin"></i>　推广二维码
+                        <i style="color:#D99BFF;font-size:0.25rem" class="iconfont icon--10 zijin"></i>　推广链接
                         <span class="right">></span>
                     </p>
                 </a>
