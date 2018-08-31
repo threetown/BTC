@@ -13,7 +13,7 @@ class Base extends Controller
 		$this->assign('token',$this->token);
 
 		//推荐
-		$fid = input('get.fid');
+		$fid = input('fid');
 		if($fid){
 			$_SESSION['fid'] = $fid;
 			if(!isset($_SESSION['uid'])){

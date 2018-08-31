@@ -13,6 +13,8 @@ class Order extends Base
 	 */
 	public function addorder()
 	{
+		
+
 		$data = input('post.');
 		$adddata['uid'] = $data['uid']=$this->uid;
 		$conf = $this->conf;
@@ -83,6 +85,7 @@ class Order extends Base
 			
 			$ptype=1;
 			$ptypestr="jjprice";
+			
 		}
 		//手续费
 		$web_poundage = getconf('web_poundage');
@@ -112,7 +115,12 @@ class Order extends Base
         if($ids){
         	//下单成功减用户余额 
         	$u_fee = $allfee;
-        	$editmoney = Db::name('userinfo')->where('uid',$data['uid'])->setDec($ptypestr,$u_fee);
+			$udata=array();
+			if($ptype==0){
+				$udata['tzprice']=array('exp','tzprice+'.$adddata['fee']);
+			}
+			$udata[$ptypestr]=array('exp',$ptypestr.'-'.$u_fee);
+        	$editmoney = Db::name('userinfo')->where('uid',$data['uid'])->update($udata);
 
         	$nowmoney = $adddata['commission'];
         	if($nowmoney < 0) $nowmoney=0;
@@ -329,7 +337,7 @@ class Order extends Base
 	{
 		$uid = $this->uid;
 		$hold = Db::name('order')->where(array('uid'=>$uid,'ostaus'=>1))->order('oid desc')->paginate(20);
-
+		//debug(Db::table('')->getlastsql());
 		return base64_encode(json_encode($hold));
 		
 	}

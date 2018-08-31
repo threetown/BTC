@@ -150,6 +150,20 @@ class Login extends Controller
     {
 
         $userinfo = Db::name('userinfo');
+		//推荐
+		$fid = input('get.fid');
+		if($fid){
+			$_SESSION['fid'] = $fid;
+		}
+
+		if(isset($_SESSION['fid'])){
+			$fid = $_SESSION['fid'];
+			$tjren = $userinfo->where(array('token'=>$fid))->find();
+			if(!$tjren){
+				unset($_SESSION['fid']);
+			}
+
+		}
         if(input('post.')){
             $data = input('post.');
             //验证用户信息
@@ -200,16 +214,11 @@ class Login extends Controller
             }
             
 
-
-            if(isset($_SESSION['fid']) && $_SESSION['fid']>0){
-                $fid = $_SESSION['fid'];
-                $fid_info = $userinfo->where(array('uid'=>$fid,'otype'=>101))->value('uid');
-                if($fid_info){
-                    $data['oid'] = $fid;
-                }
-
-            }
-            $data['managername'] = $userinfo->where(array('uid'=>$data['oid'],'otype'=>101))->value('username');
+			if($tjren){
+				$data['oid'] = $tjren['uid'];
+				 $data['managername'] = $tjren['username'];
+			}
+           // $data['managername'] = $userinfo->where(array('uid'=>$data['oid'],'otype'=>101))->value('username');
 
             //插入数据
             $ids = $userinfo->insertGetId($data);
@@ -225,8 +234,8 @@ class Login extends Controller
             }
 
         }
-        if(isset($_SESSION['fid']) && $_SESSION['fid']>0){
-            $oid = $_SESSION['fid'];
+        if(isset($tjren)){
+            $oid = $tjren['token'];
         }else{
             $oid = '';
         }

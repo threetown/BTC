@@ -13,8 +13,10 @@ class User extends Base
 	 */
 	public function index()
 	{
-		$uid = $this->uid;;
-		$user = Db::name('userinfo')->where('uid',$uid)->find();
+		$uid = $this->uid;
+		//$user = Db::name('userinfo')->where('uid',$uid)->find();
+		$user = $this->user;;
+		
 
 		//出金------------------------------------------
 		//银行卡
@@ -78,6 +80,32 @@ class User extends Base
 		$this->assign('payment',$payment);
 		$this->assign('reg_push',$reg_push);
 		return $this->fetch();
+	}
+	public function jjprice(){
+		$uid = $this->uid;
+	
+
+
+        //资金流水
+        //$data['order_list'] = db('price_log')->where('uid',$uid)->order('id desc')->limit(0,20)->select();
+		//$this->assign($data);
+		return $this->fetch();
+		
+	}
+	/**
+	 * 资金明细列表
+	 * @author lukui  2017-07-18
+	 * @return [type] [description]
+	 */
+	public function pricelist()
+	{
+		$type = input('type');
+		$type=$type=="1"?1:0;
+		$uid = $this->uid;
+		$hold = Db::name('price_log')->where(array('uid'=>$uid,'ptype'=>$type))->order('id desc')->paginate(20);
+		//debug(Db::table('')->getlastsql());
+		return base64_encode(json_encode($hold));
+		
 	}
 	/**
 	 * 奖金转余额
@@ -848,7 +876,7 @@ class User extends Base
         //}else{
         	$oid = $user['token'] ;
         //}
-        $oid_url = "http://".$_SERVER['SERVER_NAME'].'?fid='.$oid;
+        $oid_url = "http://".$_SERVER['SERVER_NAME'].'/index/login/register/fid/'.$oid.'.html';
    		$this->assign('oid_url',$oid_url);
    		return $this->fetch();
    	}

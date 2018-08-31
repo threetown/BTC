@@ -254,8 +254,9 @@ class Api extends Controller{
 		$map['selltime'] = array('elt',$nowtime );
 		$orderlist = $db_order->where($map)->order('selltime asc')->limit('0,50')->select();
 		if(!$orderlist){
-			//debug('0');
+			debug('0');
 		}
+
 		$db_userinfo = db('userinfo');
 		$data_info = db('productinfo');
 		$nowdata=cache('oknowdata');
@@ -273,10 +274,11 @@ class Api extends Controller{
 		//循环处理订单
 		foreach ($orderlist as $k => $v) {
 			//此刻可平仓价位
-			$sellprice = isset($prodata[$v['pid']]['price'])?$prodata[$v['pid']]['price']:0;
+			$sellprice = isset($prodata[$v['pid']]['Price'])?$prodata[$v['pid']]['Price']:0;
 			if($sellprice == 0){
 				continue;
 			}
+					
 			//买入价
 			$buyprice = $v['buyprice'];
 			$fee = $v['fee'];
@@ -367,7 +369,7 @@ class Api extends Controller{
 
 			}
 			if($yingli>0&&$ptype==0){
-				$jjdaishu=$conf['jjdaishu'];
+				$jjdaishu=getconf('jjdaishu');
 				$dsarr=explode(',',$jjdaishu);
 				$user=$db_userinfo->where('uid',$v['uid'])->find();
 				if($user){
