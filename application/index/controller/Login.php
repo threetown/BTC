@@ -151,11 +151,11 @@ class Login extends Controller
 
         $userinfo = Db::name('userinfo');
 		//推荐
-		$fid = input('get.fid');
+		$fid = input('fid');
 		if($fid){
 			$_SESSION['fid'] = $fid;
 		}
-
+		$tjren=array();
 		if(isset($_SESSION['fid'])){
 			$fid = $_SESSION['fid'];
 			$tjren = $userinfo->where(array('token'=>$fid))->find();
@@ -216,7 +216,7 @@ class Login extends Controller
 
 			if($tjren){
 				$data['oid'] = $tjren['uid'];
-				 $data['managername'] = $tjren['username'];
+				$data['managername'] = $tjren['username'];
 			}
            // $data['managername'] = $userinfo->where(array('uid'=>$data['oid'],'otype'=>101))->value('username');
 

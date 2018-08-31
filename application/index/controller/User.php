@@ -291,7 +291,21 @@ class User extends Base
 			return $this->fetch();
 		}
 	}
+	public function myteam(){
+		$pid=input('pid');
+		$pid=is_numeric($pid)&& $pid>0?$pid:$this->uid;
 
+		$user=Db::name('userinfo');
+   		$map['oid'] = $pid;
+
+
+   		$list = $user->where($map)->order('uid desc')->select();
+
+   		$this->assign('list',$list);
+
+
+		return $this->fetch();
+	}
 
 	/**
 	 * 提现记录
