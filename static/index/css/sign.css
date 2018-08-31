@@ -1,18 +1,26 @@
 ﻿/* 登陆页CSS开发QQ2807016 */
 .signin-view {
-    background: url(../img/sign-bg.png) no-repeat;
-    background-size:100% 100% ;
+    background: #040404 url(../img/sign-bg.png) center top no-repeat;
+    background-size:100% auto ;
+}
+.signin-view-bg{
+	background: #040404 url(../img/loginbg_top.jpg) center top no-repeat;
+    background-size:100% auto ;
 }
 
 .signin {
-    width: 70%;
+    width: 100%;
     height: 100%;
-    margin-left: 15%;
+    padding: 0 15%;
     text-align: center;
+    background: url(../img/loginbg_bottom.jpg) center bottom no-repeat;
+    background-size: 100% auto;
 }
 .signin-header {
-    margin-top: 0.8rem;
+    padding-top: 0.8rem;
     margin-bottom:0.2rem;
+    height: 100px;
+    box-sizing: content-box;
 }
 .signin-header .system-logo{
 		width: auto;
@@ -20,6 +28,7 @@
 		margin: 0 auto;
 		max-width: 600px;
 		max-height: 300px;
+		display: none;
 }
 .signin-header .system-logo img {
     width: 50%;
@@ -58,7 +67,7 @@
     margin-bottom: 0.1rem;
     border-width: 0px;
     border-radius: 0.05rem;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(22, 23, 24, 1);
     padding: 0;
 }
 
