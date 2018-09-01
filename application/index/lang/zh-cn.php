@@ -36,6 +36,7 @@ return array(
     'password' => '密碼',
     'new_password' => '新密碼',
     'confirm_password' => '確認密碼',
+    'referral_code' => '推薦碼',
     'reset_password' => '重置密碼',
     'goback' => '返回',
     'order' => '買漲',
@@ -114,4 +115,10 @@ return array(
     'submit' => '提交',
 	'go_register' => '立即開戶',
 	'forget_password' => '忘記密碼',
+    'username' => '用戶名',
+    'password' => '密碼',
+    'login' => '登錄',
+    'register' => '註冊',
+    'go_login' => '已有帳戶，登陸',
+    'email' => '郵箱'
 );

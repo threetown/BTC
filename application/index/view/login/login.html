@@ -19,11 +19,11 @@
         <div class="list">
             <label class="item item-input">
                 <i class="input-icon ion-android-person"></i>
-                <input type="text" placeholder="用户名" name="username" required="" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" style="">
+                <input type="text" placeholder="{$Think.lang.email}" name="username" required="" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" style="">
             </label>
             <label class="item item-input">
                 <i class="input-icon ion-locked"></i>
-                <input type="password" placeholder="密码" name="upwd" required="" ng-keydown="go_signin()" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" style="">
+                <input type="password" placeholder="{$Think.lang.password}" name="upwd" required="" ng-keydown="go_signin()" class="ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" style="">
             </label>
         </div>
         <p>
@@ -32,7 +32,7 @@
     	</p>
         <div class="signin-action">
             <button class="newbutton sign_button" onclick="return checkform(this.form);">
-                登&nbsp;&nbsp;录
+                {$Think.lang.login}
             </button>
         </div>
 
