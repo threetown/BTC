@@ -252,25 +252,27 @@ class Api extends Controller{
 		//订单列表
 		$map['ostaus'] = 0;
 		$map['selltime'] = array('elt',$nowtime );
+		//$map['pid'] = 23;
 		$orderlist = $db_order->where($map)->order('selltime asc')->limit('0,50')->select();
 		if(!$orderlist){
-			debug('0');
+			//debug('0');
 		}
 
 		$db_userinfo = db('userinfo');
 		$data_info = db('productinfo');
-		$nowdata=cache('oknowdata');
+		// $nowdata=cache('oknowdata');
 		
-		if(!$nowdata||$nowdata['date']!=$nowdate){
-			$nowdata['date']=$nowdate;
-			$nowdata['data']=cache('nowdata');
-			cache('oknowdata',$nowdata);
-		}
-		$prodata=$nowdata['data'];
+		// if(!$nowdata||$nowdata['date']!=$nowdate){
+			// $nowdata['date']=$nowdate;
+			// $nowdata['data']=cache('nowdata');
+			// cache('oknowdata',$nowdata);
+		// }
+		$prodata=cache('nowdata');
+		//$prodata=$nowdata['data'];
 		$winprice=getconf('winprice');
 		$lossprice=getconf('lossprice');
 		$jjtouzi=getconf('jjtouzi');
-		
+		debug($prodata);
 		//循环处理订单
 		foreach ($orderlist as $k => $v) {
 			//此刻可平仓价位
@@ -278,7 +280,7 @@ class Api extends Controller{
 			if($sellprice == 0){
 				continue;
 			}
-					
+			;		
 			//买入价
 			$buyprice = $v['buyprice'];
 			$fee = $v['fee'];

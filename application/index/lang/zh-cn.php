@@ -111,5 +111,7 @@ return array(
     'settlement_price' => '結算價',
     'agent' => '代理商',
     'member' => '普通會員',
-    'submit' => '提交'
+    'submit' => '提交',
+	'go_register' => '立即開戶',
+	'forget_password' => '忘記密碼',
 );

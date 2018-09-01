@@ -649,10 +649,10 @@ class Order extends Base
     {
         
         $data['hangqing'] = '商品行情';
-        $data['jiaoyijilu'] = '交易记录';
-        $data['jiaoyilishi'] = '交易历史';
-        $data['chicangmingxi'] = '持仓明细';
-        $data['lishimingxi'] = '历史明细';
+        $data['jiaoyijilu'] = '交易記錄';
+        $data['jiaoyilishi'] = '交易歷史';
+        $data['chicangmingxi'] = '持倉明細';
+        $data['lishimingxi'] = '歷史明細';
 
         $res = base64_encode(json_encode($data));
         return $res;

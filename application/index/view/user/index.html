@@ -35,18 +35,19 @@ var returnrul = "{:url('user/index')}";
 
 <ion-nav-view name="tab-profile" class="view-container tab-content" nav-view="active" nav-view-transition="ios" nav-view-direction="swap" nav-swipe=""><ion-view view-title="{$Think.lang.user_center}" hide-nav-bar="false" class="pane" state="tab.profile" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);">
     <ion-content class="personalbg scroll-content ionic-scroll scroll-content-false  has-header has-tabs" scroll="false">
-		<header style="padding: .2rem .12rem;">
+		<header style="padding: .12rem;text-align: left;">
 			<i onClick="app_exit()" class="iconfont icon--9"></i>
 			<!-- <article>
 				<img src="{$userinfo.portrait?$userinfo.portrait:'__HOME__/img/logobg.jpg'}">
 			</article> -->
-			<p class="ng-binding" style="text-align: left;margin-top: -0.1rem;">{$userinfo.nickname?$userinfo.nickname:$userinfo.username}({if $userinfo.rank >0} {$Think.lang.agent} {else/}{$Think.lang.member}{/if}) </p>
+			<p class="ng-binding" style="color: #fff;text-align: left;margin-top: 0;">{$userinfo.nickname?$userinfo.nickname:$userinfo.username}({if $userinfo.rank >0} {$Think.lang.agent} {else/}{$Think.lang.member}{/if}) </p>
             <p class="ng-binding" style="color: #fff;text-align: left;">{$Think.lang.share_coed}：{$userinfo.token}<span class="iconfont icon--3" onClick="respass()"></span></p>
 			<!-- <p class="ng-binding"></p> -->
             <div style="color: #fdbe19;">
                 <div>{$Think.lang.assets}：￥{$userinfo.usermoney}</div>
                 <div>{$Think.lang.business_space}：￥{$userinfo.jjprice}</div>
                 <div>{$Think.lang.balance}：￥100.00</div>
+				<div>{$Think.lang.prize}：￥100.00</div>
             </div>
 		</header>
 		<ul>

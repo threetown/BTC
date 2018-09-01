@@ -271,12 +271,12 @@ class Goods extends Base
 		$data['DIFF'] = 'DIFF:';
 		$data['DEA'] = 'DEA:';
 		$data['MACD'] = 'MACD:';
-		$data['chicang'] = '持仓:';
-		$data['maizhang'] = '订购';
-		$data['maidie'] = '代售';
+		$data['chicang'] = '持倉';
+		$data['maizhang'] = '買漲';
+		$data['maidie'] = '買跌';
 		$data['xiushi'] = '休市';
 		$data['tousijine'] = '投资金额';
-		$data['chicangmingxi'] = '持仓明细';
+		$data['chicangmingxi'] = '持倉明細';
 		$res = base64_encode(json_encode($data));
         return $res;
 	}

@@ -17,9 +17,9 @@ var returnrul = "{:url('user/index')}";
 <ion-nav-view class="view-container" nav-view-transition="ios" nav-view-direction="none" nav-swipe=""><ion-tabs class="tabs-icon-top navbar pane tabs-bottom tabs-standard" abstract="true" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);"><div class="tab-nav tabs">
 
 
-<a href="/"  class="iconfont icon--6 tabnone tab-item " style=""><span class="tab-title ng-binding" >商品行情</span></a>
-<a href="{:url('order/hold')}" class="iconfont icon--7 tabnone tab-item" style=""><span class="tab-title ng-binding" >交易记录</span></a>
-<a href="{:url('user/index')}"  class="iconfont icon--8 tabnone tab-item tab-item-active" style=""><span class="tab-title ng-binding" >个人账户</span></a>
+<a href="/"  class="iconfont icon--6 tabnone tab-item " style=""><span class="tab-title ng-binding" >{$Think.lang.hangqing}</span></a>
+<a href="{:url('order/hold')}" class="iconfont icon--7 tabnone tab-item" style=""><span class="tab-title ng-binding" >{$Think.lang.buiness_record}</span></a>
+<a href="{:url('user/index')}"  class="iconfont icon--8 tabnone tab-item tab-item-active" style=""><span class="tab-title ng-binding" >{$Think.lang.user_count}</span></a>
 
 </div>
 
@@ -27,7 +27,7 @@ var returnrul = "{:url('user/index')}";
 
     	<div class="nav-bar-block" nav-bar="active">
     		<ion-header-bar class="bar-stable headerbar bar bar-header" align-title="center">
-    			<div class="title title-center header-item" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">推广二维码</div>
+    			<div class="title title-center header-item" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">{$Think.lang.share_link}</div>
     		</ion-header-bar>
     	</div>
     </ion-nav-bar>

@@ -449,7 +449,6 @@ var order_max_price = {:getconf('order_max_price')};
           
         var res = jQuery.parseJSON(Base64.decode(_res)); 
         
-
         $.each(res,function(k,v){
             $('.'+k).html(v);
         })
