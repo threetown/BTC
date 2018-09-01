@@ -239,7 +239,82 @@ class Pay extends Controller
 		die("opstate=0");
 		
 	}
-
+	public function tfbback(){
+		$merchant_id		= '4863ae7f88fc4dbdbe0cf7a2326df1f5'; //填写自己的
+		//通信密钥
+		$merchant_key		= 'b51dcb9c664a44cdb44de61e338840fe';//填写自己的
+		if(isset($_GET['tradeStatus'])) { 
+			$tradestatus = $_GET['tradeStatus'];
+			$sign = $_GET['sign'];
+			$data = array(
+					'payKey' => $_GET['payKey'],
+					'productName' => $_GET['productName'],
+					'outTradeNo' => $_GET['outTradeNo'],
+					'orderPrice' => $_GET['orderPrice'],
+					'productType' => $_GET['productType'],
+					'tradeStatus' => $tradestatus,
+					'successTime' => $_GET['successTime'],
+					'orderTime' => $_GET['orderTime'],
+					'trxNo' => $_GET['trxNo'],
+					'remark' => $_GET['remark']
+			);
+			$post = array(
+				'data' => $data,
+				'sign' => $_GET['sign']
+			);
+			if($tradestatus == 'SUCCESS'){
+				echo "交易成功";
+				
+				$is_sign = '';
+				ksort($post['data']);
+				foreach ($post['data'] as $key => $value) {
+					if ($value != ""&& $key != "sign") {
+						$is_sign .= $key . '='.$value.'&';
+					}
+				}
+				$is_sign=$is_sign.'paySecret=';
+				$is_sign .= $a_key;
+				$is_sign = strtoupper(md5($is_sign));
+				if ($is_sign == $post['sign']) {
+	
+				   
+					echo "respCode=000000";
+					//echo "下单时间".$_POST['data']['orderTime']."订单金额".$_POST['data']['orderPrice']."成交时间".$_POST['data']['successTime'];
+					//echo "签名签证成功";
+					$map['bptype']=3;
+					$map['balance_sn']=$orderid;
+					$balance = db('balance')->where($map)->find();
+					if($balance){
+						//余额
+						$user_money = db('userinfo')->where('uid',$balance['uid'])->value('usermoney');
+						$_edit['bptype'] = 1;
+						$_edit['isverified'] = 1;
+						$_edit['cltime'] = time();
+						$_edit['bpbalance'] = $balance['bpprice']+$user_money;
+						db('balance')->where('balance_sn',$orderid)->update($_edit);
+						$_ids=db('userinfo')->where('uid',$balance['uid'])->setInc('usermoney',$balance['bpprice']);
+						set_price_log($balance['uid'],1,$balance['bpprice'],'充值','用户充值',$balance['bpid'],$_edit['bpbalance']);
+					}
+					
+					
+					exit;
+				} else {
+					//var_dump($post);
+					//签名验证失败
+					echo "签名验证失败";
+					exit;
+				}
+			}else if($tradestatus = 'FAILED'){
+				echo "交易失败";
+			}else{
+				echo "等待支付";
+			}
+		
+		}
+		
+	
+		
+	}
 
 
     public function qianbaotong($data,$pay_type,$type=0)

@@ -86,6 +86,10 @@ class Order extends Base
 			$ptype=1;
 			$ptypestr="jjprice";
 			
+		}elseif(isset($data['ptype'])&&$data['ptype']=='cwprice'){
+			
+			$ptype=2;
+			$ptypestr="cwprice";
 		}
 		//手续费
 		$web_poundage = getconf('web_poundage');
@@ -649,10 +653,10 @@ class Order extends Base
     {
         
         $data['hangqing'] = '商品行情';
-        $data['jiaoyijilu'] = '交易記錄';
-        $data['jiaoyilishi'] = '交易歷史';
-        $data['chicangmingxi'] = '持倉明細';
-        $data['lishimingxi'] = '歷史明細';
+        $data['jiaoyijilu'] = '交易记录';
+        $data['jiaoyilishi'] = '交易历史';
+        $data['chicangmingxi'] = '持仓明细';
+        $data['lishimingxi'] = '历史明细';
 
         $res = base64_encode(json_encode($data));
         return $res;

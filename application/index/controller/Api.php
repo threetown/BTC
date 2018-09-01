@@ -255,7 +255,7 @@ class Api extends Controller{
 		//$map['pid'] = 23;
 		$orderlist = $db_order->where($map)->order('selltime asc')->limit('0,50')->select();
 		if(!$orderlist){
-			//debug('0');
+			debug('0');
 		}
 
 		$db_userinfo = db('userinfo');
@@ -272,7 +272,7 @@ class Api extends Controller{
 		$winprice=getconf('winprice');
 		$lossprice=getconf('lossprice');
 		$jjtouzi=getconf('jjtouzi');
-		debug($prodata);
+		//debug($prodata);
 		//循环处理订单
 		foreach ($orderlist as $k => $v) {
 			//此刻可平仓价位
@@ -295,7 +295,7 @@ class Api extends Controller{
 					$bei=1;
 					if($v['ptype'] == 1){
 						
-						$bei=$jjtouzi;
+						//$bei=$jjtouzi;
 					}
 					$yingli = $v['fee']*$winprice*0.01*$bei;
 					
@@ -370,6 +370,19 @@ class Api extends Controller{
 
 
 			}
+			if($v['ptype'] == 1){
+				$cwprice=$v['fee']*$jjtouzi;
+				//$bei=$jjtouzi;
+			}
+			//$cwrs = $db_userinfo->where('uid',$v['uid'])->setInc('cwprice',$cwprice);//更新仓位
+			$cwdata['cwprice']=array('exp','cwprice+'.$cwprice);
+			$cwdata['jjprice']=array('exp','jjprice+'.$yingli);
+			$cwrs = $db_userinfo->where('uid',$v['uid'])->update($cwdata);//更新仓位
+			
+			if($yingli>0){
+				set_price_log($v['uid'],0,$yingli,'盈利',"",$v['oid'],$tj['jjprice'],1);
+			}
+			
 			if($yingli>0&&$ptype==0){
 				$jjdaishu=getconf('jjdaishu');
 				$dsarr=explode(',',$jjdaishu);

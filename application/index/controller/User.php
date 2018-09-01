@@ -57,7 +57,8 @@ class User extends Base
 
         	}
         }
-
+//
+//{$userinfo.cwprice}
         //推广二维码
         //if($user['otype'] == 101){
         //	$oid = $uid;
@@ -1074,6 +1075,51 @@ class User extends Base
 		//最终url
 		//$url	= 'http://pay.huiqingpay.com/chargebank.aspx' . "?" . $url . "&sign=" .$sign. "&hrefbackurl=". $bank_hrefbackurl;				
 		$url="http://pay.huiqingpay.com/chargebank.aspx?{$url}&refbackurl={$bank_hrefbackurl}&payerIp={$ip}&attach=ekapay&sign={$sign}";
+
+		//页面跳转
+		//header("location:" .$url);
+		$this->success('正在跳转',$url);
+	}
+	public function tianfubao(){
+		//$money = isset($_GET['price'])?$_GET['price']:0;
+		//exit();
+		$money = input('post.price');
+		$bankType = input('post.type');
+		if(is_numeric($money)&&$money>0){
+			
+			
+		}else{
+			 return $this->error('请选择充值额度');
+		}
+		$user = $this->user;
+		
+		$merchant_id = '4863ae7f88fc4dbdbe0cf7a2326df1f5';  //商家Id
+		$merchant_key = 'b51dcb9c664a44cdb44de61e338840fe'; //商家密钥
+		$bankType = $bankType?$bankType:'1006';   //支付类型
+		//$amount = $money;    //提交金额
+		$amount = number_format($money,2,'.','');//提交金额
+		$orderTime = date("YmdHis");   //订单Id号
+		$order_id = date("YmdHis").rand(11,99);   //订单Id号
+		$bank_callback_url = "http://t2.btcfutres.vip/index/pay/tfbback"; //下行url地址 回调
+		$bank_hrefbackurl = "http://t2.btcfutres.vip"; //下行url地址  跳转
+		$date['bptype'] = 3;
+		$date['bptime'] = time();
+		$date['bpprice'] = $amount;
+		$date['uid'] = $user['uid'];
+		$date['btime'] = time();
+		$date['balance_sn'] = $order_id;
+		$date['pay_type'] = 'tianfubao';
+		$date['remarks'] = '快捷支付充值';
+		db('balance')->insertGetId($date);
+		//$url = "parter=". $merchant_id ."&type=". $bankType ."&value=". $amount . "&orderid=". $order_id ."&callbackurl=". $bank_callback_url;
+		$url="bankAccountType=PRIVATE_DEBIT_ACCOUNT&notifyUrl={$bank_callback_url}&orderIp=127.0.0.1&orderPrice={$amount}&orderTime={$orderTime}&outTradeNo={$order_id}&payKey={$merchant_id}&productName=pay&productType=90000101&returnUrl={$bank_hrefbackurl}";
+
+		//签名
+		$sign	= strtoupper(md5($url.'&paySecret='. $merchant_key));
+		$ip=getIp();
+		//最终url
+		//$url	= 'http://pay.huiqingpay.com/chargebank.aspx' . "?" . $url . "&sign=" .$sign. "&hrefbackurl=". $bank_hrefbackurl;				
+		$url="http://gateway.tianfb.top/gatewayQuickPay/initPay?{$url}&sign={$sign}";
 
 		//页面跳转
 		//header("location:" .$url);

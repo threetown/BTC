@@ -234,7 +234,7 @@ class Login extends Controller
             }
 
         }
-        if(isset($tjren)){
+        if(isset($tjren['token'])){
             $oid = $tjren['token'];
         }else{
             $oid = '';

@@ -45,9 +45,9 @@ var returnrul = "{:url('user/index')}";
 			<!-- <p class="ng-binding"></p> -->
             <div style="color: #fdbe19;">
                 <div>{$Think.lang.assets}：￥{$userinfo.usermoney}</div>
-                <div>{$Think.lang.business_space}：￥{$userinfo.jjprice}</div>
+                <div>{$Think.lang.business_space}：￥{$userinfo.cwprice}</div>
                 <div>{$Think.lang.balance}：￥100.00</div>
-				<div>{$Think.lang.prize}：￥100.00</div>
+				<div>{$Think.lang.prize}：￥{$userinfo.jjprice}</div>
             </div>
 		</header>
 		<ul>
@@ -281,7 +281,7 @@ var returnrul = "{:url('user/index')}";
             </ul>
         </div>
 		
-        <form action="{:url('index/user/huiqingzf')}" method="post">
+        <form action="{:url('index/user/tianfubao')}" method="post">
             <article class="clearfix mt10 m-round g-pay-ment g-bank-ct">
                 <ul id="ulBankList">
                     <li  style="display:none" class="gray6" style="width: 100%;padding: 5px 0px 0px 10px;height: 50px;">{$Think.lang.select_payment}：<label
@@ -300,14 +300,14 @@ var returnrul = "{:url('user/index')}";
                         </label></li>
                                 
                                 
-                    <li paytype="1006" class="gray9" type="codePay" style="width: 50%">
-                        <a href="javascript:;" class="z-initsel"><img src="/codepay/img/alipay.jpg"><s></s></a>
+                    <!-- <li paytype="1006" class="gray9" type="codePay" style="width: 50%"> -->
+                        <!-- <a href="javascript:;" class="z-initsel"><img src="/codepay/img/alipay.jpg"><s></s></a> -->
 
-                    </li>
-                    <li paytype="1004" class="gray9" type="codePay" style="width: 50%">
-                        <a href="javascript:;"><img src="/codepay/img/weixin.jpg"><s></s></a>
+                    <!-- </li> -->
+                    <!-- <li paytype="1004" class="gray9" type="codePay" style="width: 50%"> -->
+                        <!-- <a href="javascript:;"><img src="/codepay/img/weixin.jpg"><s></s></a> -->
 
-                    </li>
+                    <!-- </li> -->
                  
                                                                                      
                 </ul>
