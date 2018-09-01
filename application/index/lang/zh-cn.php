@@ -80,7 +80,7 @@ return array(
     'prize_quota' => '獎金額度',
     'confirm_order' => '訂單確認',
     'order_end_time' => '結算剩余時間',
-    'income' => '收益',
+    // 'income' => '收益',
     'expiry_time' => '到期時間',
     'cut-off_time' => '結算時間',
     'second' => '秒',

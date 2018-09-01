@@ -161,7 +161,7 @@ var order_max_price = {:getconf('order_max_price')};
 	
  }
  </script>
-				  <p style="text-align: center;color:#fa2e42;"> {$Think.lang.income}  {$proscale[0]}%</p>
+				  <!-- <p style="text-align: center;color:#fa2e42;"> {$Think.lang.income}  {$proscale[0]}%</p> -->
                       
 				{else/}
 				<p class="end_time">{$Think.lang.expiry_time}</p>
@@ -221,6 +221,12 @@ var order_max_price = {:getconf('order_max_price')};
 				<span style='color:#fa2e42'><input type="checkbox" value="{:getconf('jjtouzi')}" id="chbjjprice"></span>
 				{$Think.lang.prize}: <span>{$userinfo.jjprice}</span>
 				</label></div>
+                <div class="ng-binding">
+                    <label>
+                        <span style='color:#fa2e42'><input type="checkbox" value="{:getconf('jjtouzi')}" id="chbjjprice"></span>
+                        {$Think.lang.business_space}: <span>{$userinfo.jjprice}</span>
+                    </label>
+                </div>
 
             </div>
             <div class="order-detail-view">

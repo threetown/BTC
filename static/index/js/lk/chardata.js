@@ -108,13 +108,13 @@ $('.other-amount input').bind('input propertychange', function() {
 function toggle_order_confirm_panel(type) {
 
   if(type == 'lookup'){
-    var typename = '订购';
+    var typename = '買漲';
     order_type = 0;
     
     $('.order_type').removeClass('fall');
     $('.order_type').addClass('rise');
   }else{
-    var typename = '代售';
+    var typename = '買跌';
     order_type = 1;
 
     $('.order_type').addClass('fall');
