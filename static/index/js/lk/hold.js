@@ -9,7 +9,6 @@ var is_ajax_list = 0;
 var timer_get_price = '';
 var timer_orderlist = '';
 var listionhajax = '';
-
 //hold_order_list();
 //change_category(0);
 var _sell_time = 0;
@@ -100,12 +99,12 @@ _ftime++;
             if(v.ostyle == 0){
                 var ostyle_class = "buytop";
                 var ostyle_class2 = 'in_money';
-                var ostyle_name = "订购";
+                var ostyle_name = "買漲";
                 if(chaprice >0){
                     closeprice = v.fee*(100*10+v.endloss*10)/1000;
                     closeprice_class = 'in_money';
                 }else if(chaprice <0){
-                    closeprice = v.fee*(-1);
+                    closeprice = v.fee*(100*10+v.eid*10)/1000;
                     closeprice_class = 'out_money';
                 }else{
                     closeprice = v.fee;
@@ -113,14 +112,14 @@ _ftime++;
                 }
             }else{
                 var ostyle_class = "buydown";
-                var ostyle_name = "代售";
+                var ostyle_name = "買跌";
                 var ostyle_class2 = 'out_money';
 
                 if(chaprice <0){
                     closeprice = v.fee*(100*10+v.endloss*10)/1000;
                     closeprice_class = 'in_money';
                 }else if(chaprice >0){
-                    closeprice = v.fee*(-1);
+                    closeprice = v.fee*(100*10+v.eid*10)/1000;
                     closeprice_class = 'out_money';
                 }else{
                     closeprice = v.fee;
