@@ -24,6 +24,7 @@
 <script>
 import * as tools from 'src/util/tools'
 import * as basicConfig from 'src/config/basicConfig'
+import { ajaxSaveUser } from 'src/apis/user'
 
 export default {
   name: 'memorycheck',
@@ -43,10 +44,23 @@ export default {
           this.MemoryCheckArr.splice(i, 1)
       },
       submitCheck(){
-          localStorage.setItem("userIsLogin", true)
-          this.$router.push({
-              name: 'index'
-          })
+            let data = JSON.parse(localStorage.getItem('userInfo'));
+            console.log(data, 48)
+           $.ajax({
+            url: basicConfig.APIUrl + '/api/user/save',
+            type: 'POST', 
+            dataType: "json",
+            data
+        }).done(res => {
+            if(res.state === 1){
+                localStorage.setItem("userIsLogin", true)
+                this.$router.push({
+                    name: 'index'
+                })
+            }else{
+                console.log(res.message)
+            }
+        })
       }
   },
   computed: {
@@ -69,8 +83,8 @@ export default {
       }
   },
   created(){
-      this.MemoryCheckArr = basicConfig.memoryWords.slice();
-      this.MemoryCheckWords = JSON.parse(localStorage.getItem('userInfo')).memoryWords.split(' ');
+      this.MemoryCheckArr = basicConfig.memory_words.slice();
+      this.MemoryCheckWords = JSON.parse(localStorage.getItem('userInfo')).memory_words.split(' ');
   }
 }
 </script>

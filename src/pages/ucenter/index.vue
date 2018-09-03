@@ -37,7 +37,7 @@
             }
         },
         created(){
-            this.nickname = JSON.parse(localStorage.getItem('userInfo')).name
+            this.nickname = JSON.parse(localStorage.getItem('userInfo')).username
         }
     }
 </script>

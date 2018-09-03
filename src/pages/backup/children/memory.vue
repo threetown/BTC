@@ -35,11 +35,11 @@ export default {
           let getUserInfo = JSON.parse(localStorage.getItem('userInfo'));
 
           let result = '';
-          if(getUserInfo && getUserInfo.memoryWords){
-              result = getUserInfo.memoryWords;
+          if(getUserInfo && getUserInfo.memory_words){
+              result = getUserInfo.memory_words;
           }else{
-            result = tools.randomArray(basicConfig.memoryWords.slice()).join(' ')
-            let data = Object.assign({}, getUserInfo, { 'memoryWords': result })
+            result = tools.randomArray(basicConfig.memory_words.slice()).join(' ')
+            let data = Object.assign({}, getUserInfo, { 'memory_words': result })
             localStorage.setItem("userInfo", JSON.stringify(data))
           }
           return result;

@@ -10,7 +10,7 @@
             <input v-model.trim="form.password" type="password" class="login_input" placeholder="密码">
             <div v-show="passTipsState" class="passwordTips" :class="form.password.length>=8 ? 'tar' : ''">{{passTips}}</div>
             <input v-model.trim="form.cpassword" type="password" class="login_input" placeholder="重复输入密码">
-            <input v-model.trim="form.passcheck" type="text" class="login_input" placeholder="密码提示信息">
+            <input v-model.trim="form.password_tips" type="text" class="login_input" placeholder="密码提示信息">
         </div>
         <button type="button" class="fixed_button" :disabled="!buttonState ? true : false" @click.prevent="submitCreate">创建</button>
 
@@ -19,6 +19,9 @@
 </template>
 
 <script>
+import { ajaxCreateUser } from 'src/apis/user'
+import * as basicConfig from 'src/config/basicConfig'
+
 export default {
   name: 'Login',
   data() {
@@ -27,7 +30,7 @@ export default {
               uname: '',
               password: '',
               cpassword: '',
-              passcheck: '',
+              password_tips: '',
           },
           toast: {
               loading: false,
@@ -41,18 +44,38 @@ export default {
           const self = this;
           self.toast.loading = true;
           self.toast.state = 'loading';
-          self.toast.text = '正在创建'
-          let getUserInfo = JSON.parse(localStorage.getItem('userInfo'));
-          let userInfo = Object.assign({}, getUserInfo, {"name": self.form.uname})
-          localStorage.setItem("userInfo", JSON.stringify(userInfo))
-          setTimeout(() => {
-            self.toast.state = true;
-            self.toast.state = 'success';
-            self.toast.text = '创建成功'
-          },1000)
-          setTimeout(() => {
-            self.$router.push({ name: 'backup' })
-          },3000)
+          self.toast.text = '正在创建';
+          let data = {
+              'username': this.form.uname,
+              'password': this.form.password,
+              'password_tips': this.form.password_tips
+          }
+        // ajaxCreateUser(data).then(res => {
+        $.ajax({
+            url: basicConfig.APIUrl + '/api/user/create',
+            type: 'POST', 
+            dataType: "json",
+            data
+        }).done(res => {
+            if(res.state === 1){
+                // 更新 localStorage 用户信息
+                let getUserInfo = JSON.parse(localStorage.getItem('userInfo'));
+                let userInfo = Object.assign({}, getUserInfo, { "username" : self.form.uname, "unique_key": res.data })
+                localStorage.setItem("userInfo", JSON.stringify(userInfo))
+
+                self.toast.state = 'success';
+                self.toast.text = res.message;
+                setTimeout(() => {
+                    self.$router.push({ name: 'backup' })
+                },2000)
+            }else{
+                self.toast.state = 'error';
+                self.toast.text = res.message;
+            }
+            setTimeout(() => {
+                self.toast.loading = false;
+            },2000)
+        });
       }
   },
   computed: {
