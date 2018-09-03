@@ -62,6 +62,7 @@ export default {
                 let getUserInfo = JSON.parse(localStorage.getItem('userInfo'));
                 let userInfo = Object.assign({}, getUserInfo, { "username" : self.form.uname, "unique_key": res.data })
                 localStorage.setItem("userInfo", JSON.stringify(userInfo))
+                localStorage.setItem('token', res.data)
 
                 self.toast.state = 'success';
                 self.toast.text = res.message;

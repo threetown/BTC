@@ -5,14 +5,14 @@
             <div class="title"><button type="button" class="trigger_button" @click="triggerWallet">{{wallet.type}} <i class="iconfont icon-arrow"></i></button></div>
             <i class="R iconfont icon-trigger-qr"></i>
         </div>
-        <div class="wallet_card">
+        <div class="wallet_card" :class="wallet.type">
             <div class="header">
                 <div class="pic"><img src="~assets/images/wallet/a.png" alt=""></div>
-                <div class="name">{{wallet.type}}-Wallet</div>
-                <div class="code">0x869dbe65...Ba5369bcBd<i class="iconfont icon-copy"></i></div>
+                <div class="name">{{wallet.name}}</div>
+                <div class="code">{{wallet.address|FormatContractAddress(10)}}<i class="iconfont icon-copy"></i></div>
             </div>
             <div class="more"><i class="iconfont icon-more"></i></div>
-            <div class="price">￥ <span>0.00</span></div>
+            <div class="price">￥ <span>{{wallet.price}}</span></div>
         </div>
         <div class="wallet_list">
             <div class="header"><h2>资产</h2> <i class="iconfont icon-add" @click="search"></i></div>
@@ -39,6 +39,7 @@
 
 <script>
     import FooterNav from 'components/footer'
+import * as basicConfig from 'src/config/basicConfig'
 
     export default {
         name: 'index',
@@ -48,7 +49,11 @@
         data () {
             return {
                 wallet: {
-                    type: 'ETH'
+                    type: 1,
+                    name: '',
+                    address: '',
+                    icon: '',
+                    price: 0
                 },
                 list: [
                     { "id": 1027, "name": "Ethereum", "symbol": "ETH", "website_slug": "ethereum" },
@@ -88,7 +93,42 @@
                 this.$router.push({
                     name: 'search'
                 })
+            },
+            getUserinfo(){
+                const self = this;
+                let data = {
+                    'user_token': localStorage.getItem('token'),
+                    'wallet_type': self.wallet.type // 1为ETH; 2为BTC; 3...
+                }
+                $.ajax({
+                    url: basicConfig.APIUrl + '/api/wallet/',
+                    type: 'POST', 
+                    dataType: "json",
+                    data
+                }).done(res => {
+                    if(res.state === 1){
+                        // 根据类型获取最上面的钱包，特征： state:1, type: wallet.type
+                        let result = res.data;
+                        if(result && result.length){
+                            let topResult = result.filter((el) => {
+                                return el.type === self.wallet.type && el.state === 1;
+                            })[0];
+                            self.wallet.name = topResult.name;
+                            self.wallet.price = topResult.price;
+                            self.wallet.address = topResult.address;
+                            // self.list = result;
+                        }
+                    }else{
+                        console.log(res.message)
+                    }
+                })
+            },
+            init(){
+                this.getUserinfo()
             }
+        },
+        created(){
+            this.init()
         }
      }
 </script>

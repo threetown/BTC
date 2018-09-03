@@ -44,9 +44,8 @@ export default {
           this.MemoryCheckArr.splice(i, 1)
       },
       submitCheck(){
-            let data = JSON.parse(localStorage.getItem('userInfo'));
-            console.log(data, 48)
-           $.ajax({
+        let data = JSON.parse(localStorage.getItem('userInfo'));
+        $.ajax({
             url: basicConfig.APIUrl + '/api/user/save',
             type: 'POST', 
             dataType: "json",
