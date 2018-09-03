@@ -1,4 +1,4 @@
-const memoryWords = [
+const memory_words = [
     'nasty',
     'jacket',
     'screen',
@@ -12,7 +12,10 @@ const memoryWords = [
     'answer',
     'replace'
 ]
+
+const APIUrl = 'http://api.token.com';
       
 export {
-    memoryWords
+    memory_words,
+    APIUrl
 }

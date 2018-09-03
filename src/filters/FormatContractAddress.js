@@ -1,7 +1,7 @@
-export const FormatContractAddress = function (value) {
-    if (value && value.length>6) {
-        let subFront = value.substr(0,6);
-        let subEnd = value.substr(-6)
+export const FormatContractAddress = function (value, $length = 6) {
+    if (value && value.length>$length) {
+        let subFront = value.substr(0,$length);
+        let subEnd = value.substr(-$length)
 
         return subFront + "..." + subEnd;
     }
