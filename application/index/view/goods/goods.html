@@ -218,13 +218,13 @@ var order_max_price = {:getconf('order_max_price')};
                 <div class="ng-binding my-money">{$Think.lang.balance}: <span class="pay_mymoney">{$userinfo.usermoney}</span></div>
                 <div class="ng-binding">
 				<label>
-				<span style='color:#fa2e42'><input type="checkbox" value="{:getconf('jjtouzi')}" id="chbjjprice"></span>
+				<span style='color:#fa2e42'><input type="Radio" value="{:getconf('jjtouzi')}" id="chbjjprice"></span>
 				{$Think.lang.prize}: <span>{$userinfo.jjprice}</span>
 				</label></div>
                 <div class="ng-binding">
                     <label>
-                        <span style='color:#fa2e42'><input type="checkbox" value="{:getconf('jjtouzi')}" id="chbjjprice"></span>
-                        {$Think.lang.business_space}: <span>{$userinfo.jjprice}</span>
+                        <span style='color:#fa2e42'><input type="Radio" value="{:getconf('jjtouzi')}" id="chbjjprice"></span>
+                        {$Think.lang.business_space}: <span>{$userinfo.cwprice}</span>
                     </label>
                 </div>
 

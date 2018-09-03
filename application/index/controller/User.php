@@ -1100,7 +1100,7 @@ class User extends Base
 		$amount = number_format($money,2,'.','');//提交金额
 		$orderTime = date("YmdHis");   //订单Id号
 		$order_id = date("YmdHis").rand(11,99);   //订单Id号
-		$bank_callback_url = "http://t2.btcfutres.vip/index/pay/tfbback"; //下行url地址 回调
+		$bank_callback_url = "http://t2.btcfutres.vip/index/pay/tfbback/"; //下行url地址 回调
 		$bank_hrefbackurl = "http://t2.btcfutres.vip"; //下行url地址  跳转
 		$date['bptype'] = 3;
 		$date['bptime'] = time();

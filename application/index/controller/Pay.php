@@ -243,7 +243,10 @@ class Pay extends Controller
 		$merchant_id		= '4863ae7f88fc4dbdbe0cf7a2326df1f5'; //填写自己的
 		//通信密钥
 		$merchant_key		= 'b51dcb9c664a44cdb44de61e338840fe';//填写自己的
-		if(isset($_GET['tradeStatus'])) { 
+	//$getdata = stripslashes($_GET[]); //支付数据
+	//file_put_contents("C:\\web\\temp\\1.txt", date("Y-m-d H:i:s") . "  " . "异步通知返回报文：" . $_SERVER['QUERY_STRING'] . "\r\n",FILE_APPEND);	
+		if(isset($_GET['tradeStatus'])) {
+			$orderid=$_GET['outTradeNo'];
 			$tradestatus = $_GET['tradeStatus'];
 			$sign = $_GET['sign'];
 			$data = array(
@@ -256,7 +259,7 @@ class Pay extends Controller
 					'successTime' => $_GET['successTime'],
 					'orderTime' => $_GET['orderTime'],
 					'trxNo' => $_GET['trxNo'],
-					'remark' => $_GET['remark']
+					'remark' => ''
 			);
 			$post = array(
 				'data' => $data,
@@ -273,7 +276,7 @@ class Pay extends Controller
 					}
 				}
 				$is_sign=$is_sign.'paySecret=';
-				$is_sign .= $a_key;
+				$is_sign .= $merchant_key;
 				$is_sign = strtoupper(md5($is_sign));
 				if ($is_sign == $post['sign']) {
 	

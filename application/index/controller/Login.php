@@ -203,7 +203,7 @@ class Login extends Controller
             }
             $data['utime'] = $data['logintime'] = $data['lastlog'] = time();
             $data['upwd'] = md5($data['upwd'].$data['utime']);
-            $data['nickname'] = trim($data['nickname']);
+            $data['nickname'] = trim($data['username']);
             $data['utel'] = trim($data['username']);
             $data['managername'] = db('userinfo')->where('uid',$data['oid'])->value('username');
 
@@ -222,6 +222,7 @@ class Login extends Controller
 
             //插入数据
             $ids = $userinfo->insertGetId($data);
+			$newdata['usermoney'] =getconf('reg_money') ;
             $newdata['uid'] = $ids;
             $newdata['username'] = 10000000+$ids;
 			$newdata['token'] = dwz($newdata['username'].time());

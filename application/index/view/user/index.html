@@ -44,9 +44,9 @@ var returnrul = "{:url('user/index')}";
             <p class="ng-binding" style="color: #fff;text-align: left;">{$Think.lang.share_coed}：{$userinfo.token}<span class="iconfont icon--3" onClick="respass()"></span></p>
 			<!-- <p class="ng-binding"></p> -->
             <div style="color: #fdbe19;">
-                <div>{$Think.lang.assets}：￥{$userinfo.usermoney}</div>
+                <div>{$Think.lang.assets}：￥{$userinfo.usermoney+$userinfo.cwprice+$userinfo.jjprice}</div>
                 <div>{$Think.lang.business_space}：￥{$userinfo.cwprice}</div>
-                <div>{$Think.lang.balance}：￥100.00</div>
+                <div>{$Think.lang.balance}：￥{$userinfo.usermoney}</div>
 				<div>{$Think.lang.prize}：￥{$userinfo.jjprice}</div>
             </div>
 		</header>
@@ -82,12 +82,12 @@ var returnrul = "{:url('user/index')}";
 					<p>客服</p>
 				</section>
 			</li> -->
-			<!-- <li>
+			<li>
 				<section onClick="show_user_modal('modal-bank2')" class="">
 					<i class="iconfont icon--16 chujin"></i>
 					<p>{$Think.lang.jiangjinzhuangyuer}</p>
 				</section>
-			</li> -->
+			</li>
 
 
 		</ul>
