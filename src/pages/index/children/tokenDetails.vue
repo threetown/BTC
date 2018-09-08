@@ -58,13 +58,13 @@
                             <span>发行成本：</span><span>{{walletToken.initial_price}}</span>
                         </li>
                         <li>
-                            <span>发行总量：</span><span>{{Currency.total_supply}}</span>
+                            <span>发行总量：</span><span>{{Currency.total_supply|currency('',0)}}</span>
                         </li>
                         <li>
-                            <span>流通量：</span><span>{{Currency.circulating_supply}}</span>
+                            <span>流通量：</span><span>{{Currency.circulating_supply|currency('',0)}}</span>
                         </li>
                         <li>
-                            <span>总价值 (USD)：</span><span>$ {{Currency.market_cap}}.0</span>
+                            <span>总价值 (USD)：</span><span>{{Currency.market_cap|currency}}</span>
                         </li>
                         <li>
                             <span>市值排名：</span><span>{{Currency.rank}}</span>
@@ -112,9 +112,9 @@
                     let data = res.data;
                     let usd = data.quotes.USD
                     self.Currency.price = usd.price
-                    self.Currency.market_cap = (usd.market_cap).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
-                    self.Currency.total_supply = (data.total_supply).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
-                    self.Currency.circulating_supply = (data.circulating_supply).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')
+                    self.Currency.market_cap = usd.market_cap
+                    self.Currency.total_supply = data.total_supply
+                    self.Currency.circulating_supply = data.circulating_supply
                     self.Currency.rank = data.rank
                 })
             },
