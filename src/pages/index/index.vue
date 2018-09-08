@@ -2,27 +2,27 @@
     <div class="Index">
         <div class="Index_tools">
             <i class="L iconfont icon-qr"></i>
-            <div class="title"><button type="button" class="trigger_button" @click="triggerWallet">{{wallet.type}} <i class="iconfont icon-arrow"></i></button></div>
+            <div class="title"><button type="button" class="trigger_button" @click="triggerWallet">{{walletCurrentCategory.symbol}} <i class="iconfont icon-arrow"></i></button></div>
             <i class="R iconfont icon-trigger-qr"></i>
         </div>
-        <div class="wallet_card" :class="wallet.type">
+        <div class="wallet_card" :class="`wallet_cart_${walletCurrentCategory.symbol}`">
             <div class="header">
                 <div class="pic"><img src="~assets/images/wallet/a.png" alt=""></div>
                 <div class="name">{{wallet.name}}</div>
                 <div class="code">{{wallet.address|FormatContractAddress(10)}}<i class="iconfont icon-copy"></i></div>
             </div>
             <div class="more"><i class="iconfont icon-more"></i></div>
-            <div class="price">￥ <span>{{wallet.price}}</span></div>
+            <div class="price">￥ <span>{{wallet.num}}</span></div>
         </div>
         <div class="wallet_list">
-            <div class="header"><h2>资产</h2> <i class="iconfont icon-add" @click="search"></i></div>
+            <div class="header"><h2>资产</h2> <i v-if="walletCurrentCategory.symbol === 'ETH'" class="iconfont icon-add" @click="search"></i></div>
             <ul class="list">
-                <li v-for="items in list" @click="routerPush(items)">
-                    <i class="icon" :style="'background-image: url(./static/images/wallet/'+ items.symbol +'.png)'"></i>
-                    <span class="name">{{items.symbol}}</span>
+                <li v-for="items in walletMyList" @click="routerPush(items)">
+                    <img :src="items.logo_icon" :alt="items.title">
+                    <span class="name">{{items.t_symbol}}</span>
                     <div class="info">
-                        <b class="num">{{items.num ? items.num : 0}}.00</b>
-                        <span class="price">￥{{items.price ? items.price : 0}}.00</span>
+                        <b class="num">{{items.num ? items.num : 0}}</b>
+                        <span class="price">￥{{items.num ? items.num : 0}}.00</span>
                     </div>
                 </li>
             </ul>
@@ -39,7 +39,9 @@
 
 <script>
     import FooterNav from 'components/footer'
-import * as basicConfig from 'src/config/basicConfig'
+    import * as basicConfig from 'src/config/basicConfig'
+
+    import { mapGetters, mapActions } from 'vuex'
 
     export default {
         name: 'index',
@@ -49,44 +51,22 @@ import * as basicConfig from 'src/config/basicConfig'
         data () {
             return {
                 wallet: {
-                    type: 1,
                     name: '',
                     address: '',
                     icon: '',
                     price: 0
-                },
-                list: [
-                    { "id": 1027, "name": "Ethereum", "symbol": "ETH", "website_slug": "ethereum" },
-                    { "id": 1700, "name": "Aeternity", "symbol": "AE", "website_slug": "aeternity" },
-                    { "id": 1765, "name": "EOS", "symbol": "EOS", "website_slug": "eos" },
-                    { "id": 2588, "name": "Loom Network", "symbol": "LOOM", "website_slug": "loom-network" },
-                    { "id": 2405, "name": "IOST", "symbol": "IOST", "website_slug": "iostoken" },
-                    { "id": 1866, "name": "Bytom", "symbol": "BTM", "website_slug": "bytom" },
-                    { "id": 1697, "name": "Basic Attention Token", "symbol": "BAT", "website_slug": "basic-attention-token" },
-                    { "id": 1966, "name": "Decentraland", "symbol": "MANA", "website_slug": "decentraland" },
-                    { "id": 1727, "name": "Bancor", "symbol": "BNT", "website_slug": "bancor" },
-                    { "id": 1680, "name": "Aragon", "symbol": "ANT", "website_slug": "aragon" },
-                    { "id": 1963, "name": "Credo", "symbol": "CREDO", "website_slug": "credo" },
-                    { "id": 1229, "name": "DigixDAO", "symbol": "DGD", "website_slug": "digixdao" },
-                    { "id": 2739, "name": "Digix Gold Token", "symbol": "DGX", "website_slug": "digix-gold-token" },
-                    { "id": 2162, "name": "Delphy", "symbol": "DPY", "website_slug": "delphy" },
-                    { "id": 1455, "name": "Golem", "symbol": "GNT", "website_slug": "golem-network-tokens" },
-                    { "id": 1518, "name": "Maker", "symbol": "MKR", "website_slug": "maker" },
-                    { "id": 1721, "name": "Mysterium", "symbol": "MYST", "website_slug": "mysterium" },
-                    { "id": 1758, "name": "TenX", "symbol": "PAY", "website_slug": "tenx" },
-                    { "id": 1104, "name": "Augur", "symbol": "REP", "website_slug": "augur" },
-                    { "id": 1759, "name": "Status", "symbol": "SNT", "website_slug": "status" }
-                ]
+                }
             }
         },
         methods: {
+            ...mapActions([ 'setWalletCategory', 'setWalletMyList' ]),
             triggerWallet(){
 
             },
             routerPush(query){
                 this.$router.push({
                     path: '/index/token',
-                    query: { id: query.id, name: query.name, symbol: query.symbol }
+                    query: { id: query.ticker_id }
                 })
             },
             search(){
@@ -94,11 +74,11 @@ import * as basicConfig from 'src/config/basicConfig'
                     name: 'search'
                 })
             },
-            getUserinfo(){
+            getMyWallet(){ // 获取当前用户拥有钱包列表信息
                 const self = this;
                 let data = {
                     'user_token': localStorage.getItem('token'),
-                    'wallet_type': self.wallet.type // 1为ETH; 2为BTC; 3...
+                    'wallet_type': this.walletCurrentCategory.id, // 1为ETH; 2为BTC; 3...
                 }
                 $.ajax({
                     url: basicConfig.APIUrl + '/api/wallet/',
@@ -111,21 +91,48 @@ import * as basicConfig from 'src/config/basicConfig'
                         let result = res.data;
                         if(result && result.length){
                             let topResult = result.filter((el) => {
-                                return el.type === self.wallet.type && el.state === 1;
+                                return el.t_symbol === self.walletCurrentCategory.symbol;
                             })[0];
                             self.wallet.name = topResult.name;
-                            self.wallet.price = topResult.price;
+                            self.wallet.num = topResult.num;
                             self.wallet.address = topResult.address;
-                            // self.list = result;
+                            
+                            self.setWalletMyList(result);
                         }
                     }else{
                         console.log(res.message)
                     }
                 })
             },
+            getWalletCategory(){
+                const self = this;
+                let data = {
+                    'status': 1,
+                    'pid': 0
+                }
+                $.ajax({
+                    url: basicConfig.APIUrl + '/api/wallet/list',
+                    type: 'POST', 
+                    dataType: "json",
+                    data
+                }).done(res => {
+                    if(res.state === 1){
+                        if(res.data && res.data.length){
+                            self.setWalletCategory(res.data)
+                        }
+                    }else{
+                        console.log(res.message)
+                    }
+                }).done(res => {
+                    this.getMyWallet()
+                })
+            },
             init(){
-                this.getUserinfo()
+                this.getWalletCategory();
             }
+        },
+        computed: {
+            ...mapGetters([ 'walletCurrentCategory', 'walletMyList' ])
         },
         created(){
             this.init()
