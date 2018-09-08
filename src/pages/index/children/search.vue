@@ -102,7 +102,6 @@
             },
             checkWallet(params){
                 const self = this;
-                console.log(params, 86)
                 let data = {
                     'id': params.id,
                     'user_token': localStorage.getItem('token')

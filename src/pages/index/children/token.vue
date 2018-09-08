@@ -2,11 +2,11 @@
     <div class="router-rating_page token">
         <div class="token_header">
             <div class="go_back"><i class="iconfont icon-arrow" @click="$router.go(-1)"></i></div>
-            <h2 class="title">{{token.title}}</h2>
+            <h2 class="title">{{walletToken.symbol}}</h2>
             <div class="details">
                 <router-link :to="{
                         path: '/index/token/details',
-                        query: { id: token.id, name: token.name, symbol: token.title }
+                        query: { id: walletToken.ticker_id }
                     }">
                     <i class="iconfont icon-shape"></i>
                     </router-link>
@@ -16,7 +16,7 @@
             <div class="empty">{{chart.loadTips}}</div>
         </div>
         <div class="token_list">
-            <ul class="token_list_header"><li :class="items.value === token.currentType ? 'actived' : ''" v-for="items in token.type" @click="fetchResult(items.value)"><span>{{items.label}}</span></li></ul>
+            <ul class="token_list_header"><li :class="items.value === data.currentType ? 'actived' : ''" v-for="items in data.type" @click="fetchResult(items.value)"><span>{{items.label}}</span></li></ul>
             <div class="token_list_result">
                 <div class="empty">~</div>
             </div>
@@ -32,16 +32,18 @@
 </template>
 
 <script>
+    import * as basicConfig from 'src/config/basicConfig'
+    import { mapGetters, mapActions } from 'vuex'
+
     export default {
         name: 'token',
         data () {
             return {
                 token: {
-                    fulltype: '',
-                    title: '',
-                    id: '',
-                    name: '',
-                    chart: '',
+                    symbol: '',
+                    ticker_id: '',
+                },
+                data: {
                     currentType: 'all',
                     type: [
                         { label: '全部', value: 'all' },
@@ -58,21 +60,37 @@
             }
         },
         created(){
-            this.token.title = this.$route.query.symbol;
-            this.token.id = this.$route.query.id;
-            this.token.name = this.$route.query.name;
             this.init()
         },
+        computed: {
+            ...mapGetters([ 'walletToken' ])
+        },
         methods: {
+            ...mapActions([ 'setWalletToken' ]),
             init(){
                 this.fetchData()
                 this.fetchResult('all');
             },
             fetchData(){
-
+                const self = this;
+                $.ajax({
+                    url: basicConfig.APIUrl + '/api/wallet/type/' + self.$route.query.id,
+                    type: 'GET', 
+                    dataType: "json",
+                }).done(res => {
+                    if(res.state === 1){
+                        if(res.data){
+                            self.setWalletToken(res.data);
+                        }
+                    }else{
+                        console.log(res.message)
+                    }
+                }).done(res => {
+                    // this.getMyWallet()
+                })
             },
             fetchResult(type){
-                this.token.currentType = type;
+                this.data.currentType = type;
             },
             // routerTokenDeatils(type){
             //     this.$router.push({

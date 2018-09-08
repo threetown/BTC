@@ -4,7 +4,8 @@ import * as types from '../mutation-types'
 const state = {
   walletCategory: [],
   walletDefaultList: [],
-  walletMyList: []
+  walletMyList: [],
+  walletToken: {}
 }
 
 // actions
@@ -20,6 +21,9 @@ const actions = {
   },
   setWalletMyList({ commit }, res) {      // 平台钱包列表
     commit(types.WALLET_MY_LIST, res)
+  },
+  setWalletToken({ commit }, res) {      // 平台钱包列表
+    commit(types.WALLET_TOKEN, res)
   }
 }
 
@@ -29,6 +33,7 @@ const getters = {
   walletCurrentCategory: (state, getters) => getters.walletCategory && getters.walletCategory.current ? getters.walletCategory.current: '',  // 顶级 当前
   walletDefaultList: state => state.walletDefaultList,  // 平台默认显示钱包列表
   walletMyList: state => state.walletMyList,  // 我拥有的钱包
+  walletToken: state => state.walletToken     // 当前 walletToken 的信息
 }
 
 // mutations
@@ -41,7 +46,7 @@ const mutations = {
     state.walletCategory = walletInfo
   },
   [types.WALLET_DEFAULT_LIST](state, res) {
-    state.walletDefaultList = res
+    // state.walletDefaultList = res
     let defaultList = [state.walletCategory.current]
     if(res && res.length){
         state.walletDefaultList = defaultList.concat(res);
@@ -52,6 +57,9 @@ const mutations = {
   [types.WALLET_MY_LIST](state, res) {
     state.walletMyList = res
   },
+  [types.WALLET_TOKEN](state, res){
+    state.walletToken = res
+  }
 }
 
 export default {

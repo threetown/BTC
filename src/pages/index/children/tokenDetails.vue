@@ -5,14 +5,14 @@
             <h2 class="title">Token Profile</h2>
             <div class="details"><i class="iconfont icon-more"></i></div>
         </div>
-        <div class="token_outlink" id="scroll_section">
+        <div class="token_outlink" id="token_scroll_section">
             <section>
                 <div class="box header">
                     <div class="logoAndSymbol">
-                        <div class="logo"><img :src="`./static/images/wallet/${token.symbol}.png`" alt=""/></div>
+                        <div class="logo"><img :src="walletToken.logo_icon" alt=""/></div>
                         <div class="symbol">
-                            <span>{{token.symbol}}</span>
-                            <span>{{token.name}}</span>
+                            <span>{{walletToken.symbol}}</span>
+                            <span>{{walletToken.fullname}}</span>
                         </div>
                     </div>
                     <div class="averagePrice">
@@ -23,27 +23,27 @@
                 <div class="box">
                     <h2>基本信息</h2>
                     <ul class="propertyList">
-                        <li v-if="Currency.website">
+                        <li v-if="walletToken.website">
                             <span>官网：</span>
-                            <span><a :href="Currency.website">{{Currency.website}}</a></span>
+                            <span><a :href="walletToken.website">{{walletToken.website}}</a></span>
                         </li>
                         <li>
                             <span>合约地址：</span>
                             <span>
                                 <i class="token-icon-etherscan"></i>
-                                <span><a :href="`https://etherscan.io/address/${Currency.contract_address}`">{{Currency.contract_address|FormatContractAddress}}</a></span>
+                                <span><a :href="`https://etherscan.io/address/${walletToken.address}`">{{walletToken.address|FormatContractAddress}}</a></span>
                             </span>
                         </li>
-                        <li v-if="Currency.community.length >0">
+                        <li v-if="walletToken.community && walletToken.community.length >0">
                             <span>社区：</span>
                             <span>
-                                <a v-for="items in Currency.community" :href="items.url">
+                                <a v-for="items in walletToken.community" :href="items.url">
                                     <i :class="`social-${items.type}`"></i>
                                 </a>
                             </span>
                         </li>
                     </ul>
-                    <div class="overview" v-if="Currency.overview">{{Currency.overview}}</div>
+                    <div class="overview" v-if="walletToken.slogan">{{walletToken.slogan}}</div>
                 </div>
                 <div class="box">
                     <h2>发行数据</h2>
@@ -51,11 +51,11 @@
                         <li>
                             <span>状态：</span><span>流通中</span>
                         </li>
-                        <li v-if="Currency.publish_date">
-                            <span>发行日期：</span><span>{{Currency.publish_date}}</span>
+                        <li v-if="walletToken.publish_date">
+                            <span>发行日期：</span><span>{{walletToken.publish_date}}</span>
                         </li>
-                        <li v-if="Currency.initial_price">
-                            <span>发行成本：</span><span>{{Currency.initial_price}}</span>
+                        <li v-if="walletToken.initial_price">
+                            <span>发行成本：</span><span>{{walletToken.initial_price}}</span>
                         </li>
                         <li>
                             <span>发行总量：</span><span>{{Currency.total_supply}}</span>
@@ -80,6 +80,8 @@
     import BScroll from 'better-scroll'
     import * as coinMarket from 'src/apis/coinmarket'
 
+    import { mapGetters, mapActions } from 'vuex'
+
     export default {
         data(){
             return {
@@ -102,15 +104,7 @@
                 }
             }
         },
-        created(){
-            this.init()
-        },
         methods: {
-            handleRouter(){
-                this.token.symbol = this.$route.query.symbol;
-                this.token.id = this.$route.query.id;
-                this.token.name = this.$route.query.name;
-            },
             getList(){
                 const self = this;
                 const tickerId = this.$route.query.id;
@@ -124,27 +118,19 @@
                     self.Currency.rank = data.rank
                 })
             },
-            getBaseInfo(){
-                const self = this;
-                const tokenSymbol = this.$route.query.symbol;
-                coinMarket.ajaxBaseInfo(tokenSymbol).then(res => {
-                    self.Currency.website = res.website
-                    self.Currency.contract_address = res.contract_address
-                    self.Currency.publish_date = res.publish_date
-                    self.Currency.initial_price = res.initial_price
-                    self.Currency.overview = res.overview
-                    self.Currency.community = res.community
-                })
-            },
             init(){
-                this.handleRouter()
                 this.getList()
-                this.getBaseInfo()
             }
+        },
+        computed: {
+            ...mapGetters([ 'walletToken' ])
+        },
+        created(){
+            this.init()
         },
         mounted(){
         	this.$nextTick(() => {
-                new BScroll('#scroll_section', {  
+                new BScroll('#token_scroll_section', {  
                     deceleration: 0.001,
                     bounce: true,
                     swipeTime: 1800,

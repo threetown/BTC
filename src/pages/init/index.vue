@@ -18,6 +18,7 @@
     position: relative;
     text-align: center;
     height: 100vh;
+    background-color: #fff;
     .top{
         padding: 1.1rem 0 1rem;
         text-align: center;

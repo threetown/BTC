@@ -66,7 +66,7 @@
             routerPush(query){
                 this.$router.push({
                     path: '/index/token',
-                    query: { id: query.ticker_id }
+                    query: { id: query.type }
                 })
             },
             search(){
