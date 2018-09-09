@@ -20,7 +20,7 @@ import { coinMarketCapTicker, currencyconverterToCNY } from 'src/apis/coinmarket
  * 法定货币（CNY_USD）： https://free.currencyconverterapi.com/api/v6/convert?q=CNY_USD&compact=y
  */
 export const getTickerData = (converter, callback) => {
-  
+
   Promise.all([coinMarketCapTicker(), currencyconverterToCNY(converter)]).then(function(Rates) {
   	let tickerData = {};
 	 //Load Crypto Rates 加密货币
@@ -30,7 +30,7 @@ export const getTickerData = (converter, callback) => {
 	}
 	//Load Fiat Rates 法定汇率
 	let fiatRates = Rates[1].results[converter]
-	tickerData["__fiat-" + fiatRates.fr] = fiatRates['val'];
+	tickerData["__fiat-" + (fiatRates.fr).toLowerCase()] = fiatRates['val'];
 	
 	// 回调
 	if(callback && typeof callback === "function"){

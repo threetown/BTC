@@ -12,7 +12,7 @@
                 <div class="code">{{wallet.address|FormatContractAddress(10)}}<i class="iconfont icon-copy"></i></div>
             </div>
             <div class="more"><i class="iconfont icon-more"></i></div>
-            <div class="price">￥ <span>{{wallet.num}}</span></div>
+            <div class="price">￥ <span>{{wallet.num|convertRates(wallet.website_slug)}}</span></div>
         </div>
         <div class="wallet_list">
             <div class="header"><h2>资产</h2> <i v-if="walletCurrentCategory.symbol === 'ETH'" class="iconfont icon-add" @click="search"></i></div>
@@ -22,7 +22,7 @@
                     <span class="name">{{items.t_symbol}}</span>
                     <div class="info">
                         <b class="num">{{items.num ? items.num : 0}}</b>
-                        <span class="price">￥{{items.num ? items.num : 0}}.00</span>
+                        <span class="price">￥ {{items.num|convertRates(items.website_slug)}}</span>
                     </div>
                 </li>
             </ul>
@@ -55,6 +55,7 @@
                     name: '',
                     address: '',
                     icon: '',
+                    website_slug: '',
                     price: 0
                 }
             }
@@ -100,6 +101,7 @@
                             self.wallet.name = topResult.name;
                             self.wallet.num = topResult.num;
                             self.wallet.address = topResult.address;
+                            self.wallet.website_slug = topResult.website_slug;
                             
                             self.setWalletMyList(result);
                         }
@@ -131,11 +133,18 @@
                     this.getMyWallet()
                 })
             },
-            init(){
-                this.getWalletCategory();
+            triggerTickerData(){
                 getTickerData('CNY_USD',(v)=>{
-                    console.log(v)
+                    localStorage.setItem("tickerData", JSON.stringify(v))
                 });
+            },
+            init(){
+                const self = this;
+                this.getWalletCategory();
+                this.triggerTickerData()
+                setInterval(()=>{
+                    self.triggerTickerData()
+                },20000)
             }
         },
         created(){

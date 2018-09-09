@@ -93,3 +93,173 @@ export function timeFormat (time, format) {
   format = format != null ? format : 'YYYY-MM-DD HH:mm:ss'
   return moment(time).format(format)
 }
+
+
+
+
+
+function format_market_cap(val, abbreviate) {
+    if (abbreviate) {
+        return new AbbreviatedNumber(val).toLocaleString();
+    }
+    return Formatter.toLocaleString(Math.round(val));
+}
+
+function format_supply(val) {
+    if (val >= 1) {
+        val = Formatter.toLocaleString(Math.round(val));
+    } else {
+        val = Formatter.toLocaleString(val, {
+            minDecimalPlaces: 8,
+            maxDecimalPlaces: 8
+        });
+    }
+    return val;
+}
+
+function format_fiat(val) {
+    if (val >= 100000 || val == 0) {
+        val = Formatter.toLocaleString(Math.round(val));
+    } else if (val >= 1) {
+        val = Formatter.toLocaleString(val, {
+            minDecimalPlaces: 2,
+            maxDecimalPlaces: 2
+        });
+    } else if (val < 0.000001) {
+        val = Number(val).toExponential(2)
+    } else {
+        val = Formatter.toLocaleString(val, {
+            minDecimalPlaces: 6,
+            maxDecimalPlaces: 6
+        });
+    }
+    return val;
+}
+
+function format_fiat_short(val) {
+    if (val >= 1 || val == 0) {
+        if (val >= 100000) {
+            val = Formatter.toLocaleString(Math.round(val));
+        } else {
+            val = Formatter.toLocaleString(val, {
+                minDecimalPlaces: 2,
+                maxDecimalPlaces: 2
+            });
+        }
+    } else {
+        if (val < 0.01) {
+            val = Number(val).toExponential();
+        } else {
+            val = Formatter.toLocaleString(val, {
+                minDecimalPlaces: 2,
+                maxDecimalPlaces: 2
+            });
+        }
+    }
+    return val;
+}
+
+function format_crypto_helper(val, expenonentialThreshold, exponentialDigits, minDecimalPlaces, maxDecimalPlaces) {
+    if (val >= 1000 || val == 0) {
+        val = Formatter.toLocaleString(Math.round(val));
+    } else if (val >= 1) {
+        val = Formatter.toLocaleString(val, {
+            minDecimalPlaces: minDecimalPlaces,
+            maxDecimalPlaces: maxDecimalPlaces
+        });
+    } else {
+        if (val < expenonentialThreshold) {
+            val = Number(val).toExponential(exponentialDigits)
+        } else {
+            val = Formatter.toLocaleString(val, {
+                minDecimalPlaces: minDecimalPlaces,
+                maxDecimalPlaces: maxDecimalPlaces
+            });
+        }
+    }
+    return val;
+}
+
+function format_crypto(val) {
+    return format_crypto_helper(val, 0.00000001, 3, 8, 8)
+}
+
+function format_crypto_graph_label(val) {
+    return format_crypto_helper(val, 0.00000001, 3, 2, 8)
+}
+
+function format_crypto_short(val) {
+    return format_crypto_helper(val, 0.01, 1, 2, 2)
+}
+
+function format_crypto_volume(val, abbreviate) {
+    if (abbreviate) {
+        return new AbbreviatedNumber(val).toLocaleString();
+    }
+    if (val >= 1000) {
+        val = Formatter.toLocaleString(Math.round(val));
+    } else {
+        val = Formatter.toLocaleString(val, {
+            minDecimalPlaces: 2,
+            maxDecimalPlaces: 2
+        });
+    }
+    return val;
+}
+var Formatter = (function() {
+    var _locale = undefined;
+    var supportsLocaleOptions = !!(typeof Intl == 'object' && Intl && typeof Intl.NumberFormat == 'function');
+    var _toLocaleString = function(val) {
+        if (supportsLocaleOptions) {
+            return val.toLocaleString(_locale);
+        }
+        return val.toLocaleString();
+    };
+    var _toLocaleStringWithDecimalPlaces = function(val, minDecimalPlaces, maxDecimalPlaces) {
+        if (supportsLocaleOptions) {
+            return val.toLocaleString(_locale, {
+                minimumFractionDigits: minDecimalPlaces,
+                maximumFractionDigits: maxDecimalPlaces
+            });
+        }
+        return val.toFixed(maxDecimalPlaces);
+    };
+    var toLocaleString = function(value, options) {
+        var num = Number(value);
+        if (isNaN(num)) {
+            return value;
+        }
+        var minDecimalPlaces = options && options.minDecimalPlaces;
+        var maxDecimalPlaces = options && options.maxDecimalPlaces;
+        if (minDecimalPlaces === undefined || maxDecimalPlaces === undefined) {
+            return _toLocaleString(num);
+        }
+        return _toLocaleStringWithDecimalPlaces(num, minDecimalPlaces, maxDecimalPlaces);
+    }
+    return {
+        toLocaleString: toLocaleString
+    };
+}
+)();
+
+export function convertRates(conversionAmount, fromCurrency, toCurrency = '__fiat-cny'){
+  if (isNaN(conversionAmount) || conversionAmount == "") {
+    conversionAmount = 0;
+  }
+  conversionAmount = parseFloat(conversionAmount);
+  let convertedAmount = '~';
+  if(localStorage.getItem('tickerData')){
+    console.log(localStorage.getItem('tickerData'),252)
+    let tickerData = JSON.parse(localStorage.getItem('tickerData'));
+    let fromAmount = tickerData[fromCurrency];
+    let toAmount = tickerData[toCurrency];
+    convertedAmount = conversionAmount * fromAmount / toAmount;
+
+    if (toCurrency.substring(0,6) == "__fiat") {
+      convertedAmount = format_fiat(convertedAmount);
+    } else {
+      convertedAmount = format_crypto(convertedAmount);
+    }
+  }
+  return convertedAmount;
+}
