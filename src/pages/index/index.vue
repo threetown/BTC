@@ -40,6 +40,7 @@
 <script>
     import FooterNav from 'components/footer'
     import * as basicConfig from 'src/config/basicConfig'
+    import { getTickerData } from 'src/util/tools'
 
     import { mapGetters, mapActions } from 'vuex'
 
@@ -57,6 +58,9 @@
                     price: 0
                 }
             }
+        },
+        computed: {
+            ...mapGetters([ 'walletCurrentCategory', 'walletMyList' ])
         },
         methods: {
             ...mapActions([ 'setWalletCategory', 'setWalletMyList' ]),
@@ -129,10 +133,10 @@
             },
             init(){
                 this.getWalletCategory();
+                getTickerData('CNY_USD',(v)=>{
+                    console.log(v)
+                });
             }
-        },
-        computed: {
-            ...mapGetters([ 'walletCurrentCategory', 'walletMyList' ])
         },
         created(){
             this.init()
