@@ -6,7 +6,7 @@
             <div class="details">
                 <router-link :to="{
                         path: '/index/token/details',
-                        query: { id: walletToken.ticker_id }
+                        query: { id: $route.query.id }
                     }">
                     <i class="iconfont icon-shape"></i>
                     </router-link>
@@ -22,8 +22,8 @@
             </div>
         </div>
         <div class="token_tools">
-            <button class="button button_income" type="button">收款</button>
-            <button class="button button_pay" type="button">转帐</button>
+            <button class="button button_income" type="button" @click="income">收款</button>
+            <button class="button button_pay" type="button" @click="pay">转帐</button>
         </div>
         <transition name="toggle-cart">
             <router-view></router-view>
@@ -63,7 +63,7 @@
             this.init()
         },
         computed: {
-            ...mapGetters([ 'walletToken' ])
+            ...mapGetters([ 'walletMyList', 'walletToken' ])
         },
         methods: {
             ...mapActions([ 'setWalletToken' ]),
@@ -80,7 +80,12 @@
                 }).done(res => {
                     if(res.state === 1){
                         if(res.data){
-                            self.setWalletToken(res.data);
+                            let result = res.data;
+                            let num = self.walletMyList.find((v, i) => {
+                                return v.id == self.$route.query.id;
+                            }).num;
+                            result = Object.assign({}, res.data, { num })
+                            self.setWalletToken(result);
                         }
                     }else{
                         console.log(res.message)
@@ -89,15 +94,22 @@
                     // this.getMyWallet()
                 })
             },
+            walletAddNum(){
+
+            },
             fetchResult(type){
                 this.data.currentType = type;
             },
-            // routerTokenDeatils(type){
-            //     this.$router.push({
-            //         path: 'details',
-            //         query: { id: query.id, name: query.name, symbol: query.symbol }
-            //     })
-            // }
+            income(){
+                //
+            },
+            pay(id){
+                const self = this;
+                this.$router.push({
+                    path: '/index/token/pay',
+                    query: { id: self.$route.query.id }
+                })
+            }
         }
     }
 </script>

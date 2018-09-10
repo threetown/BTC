@@ -7,6 +7,7 @@ const index = r => require.ensure([], () => r(require('../pages/index')), 'index
 const search = r => require.ensure([], () => r(require('../pages/index/children/search')), 'search')
 const token = r => require.ensure([], () => r(require('../pages/index/children/token')), 'token')
 const tokenDetails = r => require.ensure([], () => r(require('../pages/index/children/tokenDetails')), 'tokenDetails')
+const pay = r => require.ensure([], () => r(require('../pages/index/children/pay')), 'pay')
 
 const marking = r => require.ensure([], () => r(require('../pages/marking')), 'marking')
 
@@ -37,7 +38,8 @@ const routes = [
         children: [
           { path: "search", name: 'search', component: search, meta: { title: '搜索' }},
           { path: "token", name: 'token', component: token, meta: { title: 'token详情' },children: [
-            { path: "details", name: 'tokenDetails', component: tokenDetails, meta: { title: 'Token Profile' }}
+            { path: "details", name: 'tokenDetails', component: tokenDetails, meta: { title: 'Token Profile' }},
+            { path: "pay", name: 'pay', component: pay, meta: { title: 'Token Profile' }}
           ]},
         ]
       },

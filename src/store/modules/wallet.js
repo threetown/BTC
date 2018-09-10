@@ -55,7 +55,9 @@ const mutations = {
     }
   },
   [types.WALLET_MY_LIST](state, res) {
-    state.walletMyList = res
+    state.walletMyList = res;
+    let walletOldInfo = JSON.parse(localStorage.getItem('wallet'));
+    localStorage.setItem("wallet", JSON.stringify(Object.assign({}, walletOldInfo, { 'list': res })));
   },
   [types.WALLET_TOKEN](state, res){
     state.walletToken = res

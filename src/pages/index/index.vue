@@ -12,7 +12,7 @@
                 <div class="code">{{wallet.address|FormatContractAddress(10)}}<i class="iconfont icon-copy"></i></div>
             </div>
             <div class="more"><i class="iconfont icon-more"></i></div>
-            <div class="price">￥ <span>{{wallet.num|convertRates(wallet.website_slug)}}</span></div>
+            <div class="price">￥ <span>{{wallet.num|convertRates(getRatesConverter, wallet.website_slug)}}</span></div>
         </div>
         <div class="wallet_list">
             <div class="header"><h2>资产</h2> <i v-if="walletCurrentCategory.symbol === 'ETH'" class="iconfont icon-add" @click="search"></i></div>
@@ -21,8 +21,8 @@
                     <img :src="items.logo_icon" :alt="items.title">
                     <span class="name">{{items.t_symbol}}</span>
                     <div class="info">
-                        <b class="num">{{items.num ? items.num : 0}}</b>
-                        <span class="price">￥ {{items.num|convertRates(items.website_slug)}}</span>
+                        <b class="num">{{parseFloat(items.num)}}</b>
+                        <span class="price">￥ {{items.num|convertRates(getRatesConverter, items.website_slug)}}</span>
                     </div>
                 </li>
             </ul>
@@ -61,10 +61,10 @@
             }
         },
         computed: {
-            ...mapGetters([ 'walletCurrentCategory', 'walletMyList' ])
+            ...mapGetters([ 'walletCurrentCategory', 'walletMyList', 'getRatesConverter' ])
         },
         methods: {
-            ...mapActions([ 'setWalletCategory', 'setWalletMyList' ]),
+            ...mapActions([ 'setWalletCategory', 'setWalletMyList', 'setRatesConverter' ]),
             triggerWallet(){
 
             },
@@ -134,8 +134,9 @@
                 })
             },
             triggerTickerData(){
+                const self = this;
                 getTickerData('CNY_USD',(v)=>{
-                    localStorage.setItem("tickerData", JSON.stringify(v))
+                    self.setRatesConverter(v)
                 });
             },
             init(){
@@ -144,7 +145,7 @@
                 this.triggerTickerData()
                 setInterval(()=>{
                     self.triggerTickerData()
-                },20000)
+                },30000)
             }
         },
         created(){

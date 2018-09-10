@@ -242,15 +242,14 @@ var Formatter = (function() {
 }
 )();
 
-export function convertRates(conversionAmount, fromCurrency, toCurrency = '__fiat-cny'){
+export function convertRates(conversionAmount, tickerData, fromCurrency, toCurrency = '__fiat-cny'){
   if (isNaN(conversionAmount) || conversionAmount == "") {
     conversionAmount = 0;
   }
   conversionAmount = parseFloat(conversionAmount);
-  let convertedAmount = '~';
-  if(localStorage.getItem('tickerData')){
-    console.log(localStorage.getItem('tickerData'),252)
-    let tickerData = JSON.parse(localStorage.getItem('tickerData'));
+  let convertedAmount = '';
+  if(tickerData){
+    // let tickerData = JSON.parse(localStorage.getItem('tickerData'));
     let fromAmount = tickerData[fromCurrency];
     let toAmount = tickerData[toCurrency];
     convertedAmount = conversionAmount * fromAmount / toAmount;
