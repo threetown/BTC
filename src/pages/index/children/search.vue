@@ -67,7 +67,7 @@
                     'pid': self.walletCurrentCategory.id,
                 }
                 $.ajax({
-                    url: basicConfig.APIUrl + '/api/wallet/list',
+                    url: basicConfig.APIUrl + '/api/wallet/',
                     type: 'POST', 
                     dataType: "json",
                     data
@@ -88,7 +88,7 @@
                     'wallet_type': this.walletCurrentCategory.id, // 1为ETH; 2为BTC; 3...
                 }
                 $.ajax({
-                    url: basicConfig.APIUrl + '/api/wallet/',
+                    url: basicConfig.APIUrl + '/api/wallet/list',
                     type: 'POST', 
                     dataType: "json",
                     data
