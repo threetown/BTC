@@ -5,7 +5,13 @@ const state = {
   walletCategory: [],
   walletDefaultList: [],
   walletMyList: [],
-  walletToken: {}
+  walletToken: {},
+  currentWallet: {
+    name: null,
+    address: null,
+    num: 0,
+    website_slug: null
+  }
 }
 
 // actions
@@ -31,6 +37,12 @@ const actions = {
 const getters = {
   walletCategory: state => state.walletCategory,  // 顶级 钱包类型（特征pid=0）： 1，ETH；2，BTC；
   walletCurrentCategory: (state, getters) => getters.walletCategory && getters.walletCategory.current ? getters.walletCategory.current: '',  // 顶级 当前
+  getCurrentWallet: (state, getters) => {
+    let current = getters.walletMyList.filter((el) => {
+        return el.t_symbol === getters.walletCurrentCategory.symbol;
+    })[0];
+    return Object.assign(state.currentWallet, current); // nice: Use Object.assign() can fix undefined proprety bug.
+  },
   walletDefaultList: state => state.walletDefaultList,  // 平台默认显示钱包列表
   walletMyList: state => state.walletMyList,  // 我拥有的钱包
   walletToken: state => state.walletToken     // 当前 walletToken 的信息
