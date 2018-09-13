@@ -40,7 +40,7 @@
             text-align: center;
             .trigger_button{
                 height: 0.42rem;
-                border: 0.02rem solid #001528;
+                border: 1px solid #001528;
                 border-radius: 0.2rem;
                 font-size: 0.2rem;
                 padding: 0 .06rem 0 .12rem;
@@ -137,6 +137,15 @@
                     height: 1.5rem;
                     padding: 0.34rem;
                     border-bottom: .01rem solid #f3f4f5;
+                    &:last-child{
+                        border-bottom: none;
+                    }
+                    img{
+                        width: 0.82rem;
+                        height: 0.82rem;
+                        border: 1px solid #f3f4f5;
+                        border-radius: 50%;
+                    }
                     .icon{
                         width: 0.82rem;
                         height: 0.82rem;
@@ -177,20 +186,64 @@
                 }
             }
         }
+        &_ctrl{
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: .62rem;
+            height: .16rem;
+            background-color: #d5dce0;
+            border-radius: .08rem;
+            &:before{
+                position: absolute;
+                content: "";
+                top: 50%;
+                left: -.12rem;
+                transform: translateY(-50%);
+                width: .42rem;
+                height: .42rem;
+                border-radius: 50%;
+                background-color: #fff;
+                box-shadow: 0 .02rem .08rem #e8e8e8;
+            }
+            &.selected{
+                background-color: #0062ad;
+                &:before{
+                    left: .32rem;
+                }
+            }
+        }
     }
 
     .search{
         position: relative;
+        z-index: 2;
         padding: .16rem;
         background-color: #fbfcfd;
         border-bottom: 0.01rem solid #eef0f2;
         .box{
             margin: 0 1.1rem 0 .88rem;
-            input{
+            .search-main{
+                position: relative;
                 width: 100%;
                 height: 0.62rem;
                 background-color: #f2f4f5;
-                padding: 0 .24rem;
+                padding: 0 .24rem 0 .68rem;
+                border-radius: .03rem;
+                i{
+                    position: absolute;
+                    left: .2rem;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    font-size: .3rem;
+                }
+                input{
+                    font-size: .26rem;
+                    height: 100%;
+                    width: 100%;
+                    background-color: transparent;
+                }
             }
         }
         .go_back{
@@ -213,12 +266,75 @@
             display: block;
         }
     }
+
     .result{
+        padding: 0 .2rem;
+        &-title{
+            position: relative;
+            z-index: 2;
+            font-size: .26rem;
+            height: .72rem;
+            line-height: .42rem;
+            padding: .15rem .3rem;
+            color: #566672;
+            background-color: #fff;
+        }
         .empty{
-            height: 100vh;
+            // height: 100vh;
             line-height: 1rem;
             text-align: center;
             color: #ccc;
+        }
+    }
+    .resourceList{
+        font-family: "Open Sans",Arial,sans-serif;
+        li{
+            position: relative;
+            padding: .36rem 1.42rem 0;
+            height: 1.72rem;
+            &::after{
+                position: absolute;
+                left: 1.42rem;
+                bottom: 0;
+                right: 0;
+                content: "";
+                height: 1px;
+                background-color: #f8f9fa;
+            }
+            .logo{
+                position: absolute;
+                left: .4rem;
+                top: 50%;
+                transform: translateY(-50%);
+                width: .8rem;
+                height: .8rem;
+                border-radius: 50%;
+                border: 1px solid #f3f4f5;
+            }
+            .info{
+                span{
+                    display: block;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+                .symbol{
+                    font-size: .28rem;
+                    line-height: .38rem;
+                    color: #11293a;
+                }
+                .fullname{
+                    font-size: .22rem;
+                    line-height: .42rem;
+                    color: #425461;
+                }
+                .address{
+                    font-size: .22rem;
+                    line-height: .32rem;
+                    letter-spacing: .02rem;
+                    color: #b6bdc2;
+                }
+            }
         }
     }
 }
