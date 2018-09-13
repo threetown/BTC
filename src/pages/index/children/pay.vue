@@ -16,8 +16,8 @@
                         </span>
                     </div>
                     <div class="flex_layout">
-                        <input class="price flex" type="text" v-model="order.num" placeholder="输入金额">
-                        <div class="initial_price flex" v-if="order.num">≈ ￥{{order.num|convertRates(getRatesConverter, walletToken.website_slug)}}</div>
+                        <input class="price flex" type="text" v-model="order.pay_number" placeholder="输入金额">
+                        <div class="initial_price flex" v-if="order.pay_number">≈ ￥{{order.pay_number|convertRates(getRatesConverter, walletToken.website_slug)}}</div>
                     </div>
                     <div class="tips flex_layout">
                         <label class="label">备注</label>
@@ -26,27 +26,69 @@
                 </div>
                 <div class="white_block">
                     <div class="order_title"><label class="label">收款地址</label> <i class="png-wallet"></i></div>
-                    <input class="order_income" type="text" placeholder="输入以太坊地址或ENS域名（以.eth结束）">
+                    <input class="order_income" v-model.trim="order.income_address" type="text" placeholder="输入以太坊地址或ENS域名（以.eth结束）">
                     <div class="order_pay" style="border-top: 1px solid #eff0f2;">
                         <div class="order_title">
                             <label class="label">付款地址</label>
-                            <div class="fr">{{order.wallet_name}}<i class="iconfont icon-arrow"></i></div>
+                            <div class="fr">{{getCurrentWallet.name}}<i class="iconfont icon-arrow"></i></div>
                         </div>
-                        <div class="address">0xTP2vuXaz3QYv3Dut0oyNiHH7fYa1XBHGvHk287qX{{order.wallet_address}}</div>
+                        <div class="address">{{getCurrentWallet.address}}</div>
                     </div>
                 </div>
                 <div class="white_block">
                     <div class="order_title">
                         <label class="label">矿工费用</label>
-                        <div class="fr">0.0002 enter ≈ ￥0.4<i class="iconfont icon-arrow"></i></div>
+                        <div class="fr" style="color: #0062ad;">{{fee}} enter ≈ ￥{{fee|convertRates(getRatesConverter, 'ethereum')}}<i class="iconfont icon-arrow"></i></div>
                     </div>
                 </div>
             </section>
         </div>
+        <button type="button" class="pay_next_button" :disabled="!nextPayButtonState ? true : false" @click.prevent="triggerPayOrder">下一步</button>
+
+        <transition name="toggle-pay-order">
+            <section class="pay_order" v-if="order.state">
+                <div class="inner">
+                    <header>
+                        <i class="iconfont icon-close" @click="order.state = false"></i><h2>支付详情</h2>
+                    </header>
+                    <div class="title"><span class="number">{{order.pay_number}}</span> {{walletToken.symbol}}</div>
+                    <section class="pay_order_details">
+                        <div class="items flex_layout">
+                            <div class="label">支付信息</div>
+                            <div class="text flex">
+                                <p>{{walletToken.symbol}}转账</p>
+                            </div>
+                        </div>
+                        <div class="items flex_layout">
+                            <div class="label">收款地址</div>
+                            <div class="text flex">
+                                <p>{{order.income_address}}</p>
+                            </div>
+                        </div>
+                        <div class="items flex_layout">
+                            <div class="label">付款地址</div>
+                            <div class="text flex">
+                                <p>{{getCurrentWallet.address}}</p>
+                                <p class="t-gray">{{getCurrentWallet.name}}</p>
+                            </div>
+                        </div>
+                        <div class="items flex_layout">
+                            <div class="label">矿工费用</div>
+                            <div class="text flex">
+                                <p>{{fee}} enter</p>
+                                <p class="t-gray">= Gas（{{walletToken.gas}}）* Gag Price（{{gas_price}} gwei）</p>
+                            </div>
+                        </div>
+                    </section>
+                    <button type="button" class="pay_next_button"  @click.prevent="handlePayOrder">下一步</button>
+                </div>
+            </section>
+        </transition>
     </div>
 </template>
 
 <script>
+    import * as basicConfig from 'src/config/basicConfig'
     import BScroll from 'better-scroll'
 
     import { mapGetters, mapActions } from 'vuex'
@@ -56,25 +98,60 @@
             return {
                 order: {
                     tips: '',
-                    wallet_name: '',
-                    wallet_address: ''
-                }
+                    income_address: '',
+                    pay_number: '',
+                    state: false
+                },
+                gas_price: 3.63
             }
         },
         methods: {
-            
+            triggerPayOrder(){
+                this.order.state = true
+            },
+            handlePayOrder(){
+                const self = this;
+                let data = {
+                    income_address: this.order.income_address,
+                    pay_address: this.getCurrentWallet.address,
+                    number: this.order.pay_number,
+                    fee: this.fee,
+                    tips: this.order.tips,
+                    user_token: localStorage.getItem('token'),
+                    pay_way: this.getCurrentWallet.t_symbol,
+                    pay_id: this.getCurrentWallet.id,             // 支付方式：ETH(1)、BTC(2)
+                    type: this.walletToken.id,                    // 交易类型ID：ETH(1)、AE(3）
+                }
+                $.ajax({
+                    url: basicConfig.APIUrl + '/api/order/add',
+                    type: 'POST', 
+                    dataType: "json",
+                    data
+                }).done(res => {
+                    if(res.state === 1){
+                        alert(res.message)
+                        location.reload()
+                    }else{
+                        alert(res.message)
+                    }
+                })
+            }
         },
         computed: {
-            ...mapGetters([ 'walletMyList', 'walletToken', 'walletCurrentCategory', 'getRatesConverter' ]),
+            ...mapGetters([ 'walletMyList', 'walletToken', 'getCurrentWallet', 'getRatesConverter' ]),
             price(){
                 return Number(this.order.num) >0 ? Number(this.order.num) * 10 : '';
             },
-            wallet(){
-                let wallet = JSON.parse(localStorage.getItem('wallet')).current;
-                // let result = {
-                //     name: wallet.
-                // }
-                return {}
+            nextPayButtonState(){
+                const self = this;
+                let state = false;
+                if(self.order.income_address.length>0 && self.order.pay_number ){
+                    state = true;
+                }
+                return state;
+            },
+            fee(){
+                return parseFloat(this.walletToken.gas * this.gas_price * 0.000000001).toFixed(4);
             }
         },
         created(){

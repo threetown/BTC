@@ -8,11 +8,11 @@
         <div class="wallet_card" :class="`wallet_cart_${walletCurrentCategory.symbol}`">
             <div class="header">
                 <div class="pic"><img src="~assets/images/wallet/a.png" alt=""></div>
-                <div class="name">{{wallet.name}}</div>
-                <div class="code">{{wallet.address|FormatContractAddress(10)}}<i class="iconfont icon-copy"></i></div>
+                <div class="name">{{getCurrentWallet.name}}</div>
+                <div class="code">{{getCurrentWallet.address|FormatContractAddress(10)}}<i class="iconfont icon-copy"></i></div>
             </div>
             <div class="more"><i class="iconfont icon-more"></i></div>
-            <div class="price">￥ <span>{{wallet.num|convertRates(getRatesConverter, wallet.website_slug)}}</span></div>
+            <div class="price">￥ <span>{{getCurrentWallet.num|convertRates(getRatesConverter, getCurrentWallet.website_slug)}}</span></div>
         </div>
         <div class="wallet_list">
             <div class="header"><h2>资产</h2> <i v-if="walletCurrentCategory.symbol === 'ETH'" class="iconfont icon-add" @click="search"></i></div>
@@ -61,7 +61,7 @@
             }
         },
         computed: {
-            ...mapGetters([ 'walletCurrentCategory', 'walletMyList', 'getRatesConverter' ])
+            ...mapGetters([ 'walletCurrentCategory', 'getCurrentWallet', 'walletMyList', 'getRatesConverter' ])
         },
         methods: {
             ...mapActions([ 'setWalletCategory', 'setWalletMyList', 'setRatesConverter' ]),
@@ -95,14 +95,14 @@
                         // 根据类型获取最上面的钱包，特征： state:1, type: wallet.type
                         let result = res.data;
                         if(result && result.length){
-                            let topResult = result.filter((el) => {
-                                return el.t_symbol === self.walletCurrentCategory.symbol;
-                            })[0];
-                            self.wallet.name = topResult.name;
-                            self.wallet.num = topResult.num;
-                            self.wallet.address = topResult.address;
-                            self.wallet.website_slug = topResult.website_slug;
-                            
+                            // let topResult = result.filter((el) => {
+                            //     return el.t_symbol === self.walletCurrentCategory.symbol;
+                            // })[0];
+                            // self.wallet.name = topResult.name;
+                            // self.wallet.num = topResult.num;
+                            // self.wallet.address = topResult.address;
+                            // self.wallet.website_slug = topResult.website_slug;
+
                             self.setWalletMyList(result);
                         }
                     }else{

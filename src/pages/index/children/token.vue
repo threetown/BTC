@@ -18,7 +18,20 @@
         <div class="token_list">
             <ul class="token_list_header"><li :class="items.value === data.currentType ? 'actived' : ''" v-for="items in data.type" @click="fetchResult(items.value)"><span>{{items.label}}</span></li></ul>
             <div class="token_list_result">
-                <div class="empty">~</div>
+                <div class="scroll_section" id="order_scroll_section">
+                    <section>
+                        <div class="empty" v-if="data.loading">~</div>
+                        <ul class="order_list" v-if="!data.loading">
+                            <li v-for="items in data.list"
+                                @click.prevent="goOrder(items)"
+                                :class="items.from_address == getCurrentWallet.address ? 'pay' : 'income'">
+                                <p>{{items.hash|FormatContractAddress(6)}}</p>
+                                {{items.create_time|timeFormat('DD/MM/YYYY HH:mm:ss')}}
+                                <span class="price">{{items.from_address == getCurrentWallet.address ? '-' : '+'}}{{parseFloat(items.number)}}</span>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
             </div>
         </div>
         <div class="token_tools">
@@ -33,6 +46,8 @@
 
 <script>
     import * as basicConfig from 'src/config/basicConfig'
+    import BScroll from 'better-scroll'
+
     import { mapGetters, mapActions } from 'vuex'
 
     export default {
@@ -51,6 +66,7 @@
                         { label: '转入', value: 'income' },
                         { label: '失败', value: 'fail'}
                     ],
+                    loading: false,
                     list: []
                 },
                 chart: {
@@ -63,7 +79,7 @@
             this.init()
         },
         computed: {
-            ...mapGetters([ 'walletMyList', 'walletToken' ])
+            ...mapGetters([ 'walletMyList', 'walletToken', 'getCurrentWallet' ])
         },
         methods: {
             ...mapActions([ 'setWalletToken' ]),
@@ -91,14 +107,61 @@
                         console.log(res.message)
                     }
                 }).done(res => {
-                    // this.getMyWallet()
+                    this.fetchOrder()
+                    this.fetchList()
                 })
             },
-            walletAddNum(){
-
+            fetchOrder(){
+                const self = this;
+                let data = {
+                    wtid: this.walletToken.id,
+                    user_token: localStorage.getItem('token')
+                }
+                $.ajax({
+                    url: basicConfig.APIUrl + '/api/order/count',
+                    type: 'POST', 
+                    dataType: "json",
+                    data
+                }).done(res => {
+                    if(res.state === 1){
+                        console.log(res.data)
+                    }else{
+                        alert(res.message)
+                    }
+                })
+            },
+            fetchList(){
+                const self = this;
+                let data = {
+                    wtid: this.walletToken.id,
+                    user_token: localStorage.getItem('token')
+                }
+                this.data.loading = true;
+                $.ajax({
+                    url: basicConfig.APIUrl + '/api/order/read',
+                    type: 'POST', 
+                    dataType: "json",
+                    data
+                }).done(res => {
+                    if(res.state === 1){
+                        if(res.data && res.data.length){
+                            self.data.list = res.data;
+                        }
+                    }else{
+                        alert(res.message)
+                    }
+                    self.data.loading = false;
+                })
             },
             fetchResult(type){
                 this.data.currentType = type;
+            },
+            goOrder(params){
+                const self = this;
+                this.$router.push({
+                    path: '/index/token/order',
+                    query: { id: params.oid }
+                })
             },
             income(){
                 //
@@ -110,6 +173,16 @@
                     query: { id: self.$route.query.id }
                 })
             }
+        },
+        mounted(){
+            this.$nextTick(() => {
+                new BScroll('#order_scroll_section', {  
+                    deceleration: 0.001,
+                    bounce: true,
+                    swipeTime: 1800,
+                    click: true,
+                }); 
+            })
         }
     }
 </script>
