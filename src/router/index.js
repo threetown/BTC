@@ -8,6 +8,7 @@ const search = r => require.ensure([], () => r(require('../pages/index/children/
 const token = r => require.ensure([], () => r(require('../pages/index/children/token')), 'token')
 const tokenDetails = r => require.ensure([], () => r(require('../pages/index/children/tokenDetails')), 'tokenDetails')
 const pay = r => require.ensure([], () => r(require('../pages/index/children/pay')), 'pay')
+const order = r => require.ensure([], () => r(require('../pages/index/children/order')), 'order')
 
 const marking = r => require.ensure([], () => r(require('../pages/marking')), 'marking')
 
@@ -39,7 +40,8 @@ const routes = [
           { path: "search", name: 'search', component: search, meta: { title: '搜索' }},
           { path: "token", name: 'token', component: token, meta: { title: 'token详情' },children: [
             { path: "details", name: 'tokenDetails', component: tokenDetails, meta: { title: 'Token Profile' }},
-            { path: "pay", name: 'pay', component: pay, meta: { title: 'Token Profile' }}
+            { path: "pay", name: 'pay', component: pay, meta: { title: '转帐' }},
+            { path: "order", name: 'order', component: order, meta: { title: '详情' }}
           ]},
         ]
       },

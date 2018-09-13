@@ -129,8 +129,8 @@ function format_fiat(val) {
         val = Number(val).toExponential(2)
     } else {
         val = Formatter.toLocaleString(val, {
-            minDecimalPlaces: 6,
-            maxDecimalPlaces: 6
+            minDecimalPlaces: 2,
+            maxDecimalPlaces: 2
         });
     }
     return val;

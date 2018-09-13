@@ -5,7 +5,12 @@ const state = {
   walletCategory: [],
   walletDefaultList: [],
   walletMyList: [],
-  walletToken: {},
+  walletToken: {
+    symbol: null,
+    num: 0,
+    id: null,
+    website_slug: null
+  },
   currentWallet: {
     name: null,
     address: null,
