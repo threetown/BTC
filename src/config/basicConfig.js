@@ -13,7 +13,7 @@ const memory_words = [
     'replace'
 ]
 
-const APIUrl = 'http://api.token.com';
+const APIUrl = 'http://yc884.cn';
       
 export {
     memory_words,
