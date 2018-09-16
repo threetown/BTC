@@ -126,7 +126,7 @@
                     if(res.state === 1){
                         console.log(res.data)
                     }else{
-                        alert(res.message)
+                        console.error(res.message)
                     }
                 })
             },

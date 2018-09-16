@@ -1,7 +1,7 @@
 <template>
     <div class="Index">
         <div class="Index_tools">
-            <i class="L iconfont icon-qr"></i>
+            <i class="L qrcode"></i>
             <div class="title"><button type="button" class="trigger_button" @click="triggerWallet">{{walletCurrentCategory.symbol}} <i class="iconfont icon-arrow"></i></button></div>
             <i class="R iconfont icon-trigger-qr"></i>
         </div>
@@ -12,7 +12,10 @@
                 <div class="code">{{getCurrentWallet.address|FormatContractAddress(10)}}<i class="iconfont icon-copy"></i></div>
             </div>
             <div class="more"><i class="iconfont icon-more"></i></div>
-            <div class="price">￥ <span>{{getCurrentWallet.num|convertRates(getRatesConverter, getCurrentWallet.website_slug)}}</span></div>
+            <div class="price">￥
+                <span v-if="parseFloat(getCurrentWallet.num) != 0">{{getCurrentWallet.num|convertRates(getRatesConverter, getCurrentWallet.website_slug)}}</span>
+                <span v-else>0.00</span>
+            </div>
         </div>
         <div class="wallet_list">
             <div class="header"><h2>资产</h2> <i v-if="walletCurrentCategory.symbol === 'ETH'" class="iconfont icon-add" @click="search"></i></div>
@@ -20,7 +23,8 @@
                 <li v-for="items in walletMyList" @click="routerPush(items)">
                     <img :src="items.logo_icon" :alt="items.title">
                     <span class="name">{{items.t_symbol}}</span>
-                    <div class="info">
+                    <div class="info" v-if="parseFloat(items.num) == 0"><b class="num">0.00</b><span class="price">0.00</span></div>
+                    <div class="info" v-else>
                         <b class="num">{{parseFloat(items.num)}}</b>
                         <span class="price">￥ {{items.num|convertRates(getRatesConverter, items.website_slug)}}</span>
                     </div>
@@ -145,7 +149,7 @@
                 this.triggerTickerData()
                 setInterval(()=>{
                     self.triggerTickerData()
-                },30000)
+                },600000)
             }
         },
         created(){

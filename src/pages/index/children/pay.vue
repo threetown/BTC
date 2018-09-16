@@ -121,6 +121,9 @@
                     pay_way: this.getCurrentWallet.t_symbol,
                     pay_id: this.getCurrentWallet.id,             // 支付方式：ETH(1)、BTC(2)
                     type: this.walletToken.id,                    // 交易类型ID：ETH(1)、AE(3）
+                    units: this.getCurrentWallet.t_symbol == 'ETH' ? 'enter' : this.getCurrentWallet.t_symbol,
+                    gas: this.walletToken.gas,
+                    gas_price: this.gas_price
                 }
                 $.ajax({
                     url: basicConfig.APIUrl + '/api/order/add',
@@ -132,7 +135,7 @@
                         alert(res.message)
                         location.reload()
                     }else{
-                        alert(res.message)
+                        console.log(res.message)
                     }
                 })
             }
