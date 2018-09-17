@@ -133,7 +133,8 @@
                 }).done(res => {
                     if(res.state === 1){
                         alert(res.message)
-                        location.reload()
+                        //after success
+                        self.$router.go(-1)
                     }else{
                         console.log(res.message)
                     }
